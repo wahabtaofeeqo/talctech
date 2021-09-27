@@ -1,0 +1,44 @@
+<%- contentFor('body') %>
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">
+        	<%= title %>
+        </h1>
+    </div>
+
+	<div class="card">
+		<div class="card-body">
+			<div class="table-responsive">
+	        	<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+	        		<thead>
+	        			<tr>
+		        			<th>#</th>
+		        			<th>Name</th>
+		        			<th>Email</th>
+		        			<th>Phone</th>
+		        			<th>Action</th>
+		        		</tr>
+	        		</thead>
+
+	        		<tbody>
+	        			<% for(let i = 0; i < users.length; i++) {%>
+	        				<tr>
+	        					<td><%= (i + 1) %></td>
+	        					<td><%= users[i].name %></td>
+	        					<td><%= users[i].email %></td>
+	        					<td><%= users[i].phone %></td>
+	        					<td>
+	        						<% if(status == 1) { %>
+	        							<button class="btn btn-sm btn-info btn-action" data-id="<%= users[i].id %>" data-type="suspend">Suspend</button>
+	        						<% } else { %>
+	        							<button class="btn btn-sm btn-info btn-action" data-id="<%= users[i].id %>" data-type="activate">Activate</button>
+	        						<% } %>
+
+	        						<button class="btn btn-sm btn-danger btn-delete" data-id="<%= users[i].id %>" data-type="user">Delete</button>
+	        					</td>
+	        				</tr>
+	        			<% } %>
+	        		</tbody>
+	        	</table>
+	        </div>
+		</div>
+	</div>

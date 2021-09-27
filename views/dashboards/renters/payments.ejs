@@ -1,0 +1,32 @@
+<%- contentFor('body') %>
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Payments</h1>
+    </div>
+
+	<div class="card">
+		<div class="card-body">
+			<div class="table-responsive">
+	        	<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+	        		<thead>
+	        			<tr>
+		        			<th>#</th>
+		        			<th>Name</th>
+		        			<th>Amount</th>
+		        			<th>Date</th>
+		        		</tr>
+	        		</thead>
+
+	        		<tbody>
+	        			<% for(let i = 0; i < payments.length; i++) {%>
+	        				<tr>
+	        					<td><%= (i + 1) %></td>
+	        					<td><%= user ? user.name : 'N/A' %></td>
+	        					<td><%= payments[i].amount %></td>
+	        					<td><%= payments[i].createdAt %></td>
+	        				</tr>
+	        			<% } %>
+	        		</tbody>
+	        	</table>
+	        </div>
+		</div>
+	</div>

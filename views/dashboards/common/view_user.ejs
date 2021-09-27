@@ -1,0 +1,85 @@
+<% if(user_roles == '1') { %>
+<%- include("../../partials/admin_header") %>
+<%- include("../../partials/admin_sidebar") %>
+<% } else if(user_roles == '2') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/landlord_sidebar") %>
+<% } else if(user_roles == '3') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/user_sidebar") %>
+<% } else if(user_roles == '4') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/renter_sidebar") %>
+<% } else if(user_roles == '5') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/exec_sidebar") %>
+<% } %>
+
+
+
+<!-- partial -->
+<div class="main-panel">
+    <%- include("../../partials/alerts") %>
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">
+                User Profile
+            </h3>
+            <%- include("../../partials/breadcrumb") %>
+        </div>
+        <!-- blank page end -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2">
+                                <div class="py-4">
+                                    <h3 clas="col-12 offset-2" style="text-align: center;"><%= user.name %></h3>
+                                    <p class="clearfix ">
+                                        <span class="float-left">
+                                            Email
+                                        </span>
+                                        <span class="float-right text-muted">
+                                            <%= user.email %>
+                                        </span>
+                                    </p>
+                                    <p class="clearfix">
+                                        <span class="float-left">
+                                            Phone
+                                        </span>
+                                        <span class="float-right text-muted">
+                                            <%= user.phone %>
+                                        </span>
+                                    </p>
+                                    <p class="clearfix">
+                                        <span class="float-left">
+                                            Role
+                                        </span>
+                                        <span class="float-right text-muted">
+                                            <% if(user.role_id == '1') { %>
+                                                <td>Admin</td>
+                                                <% } else if(user.role_id == '2') { %>
+                                                <td>Landlord</td>
+                                                <% }  else if(user.role_id == '3') { %>
+                                                <td>Tenant</td>
+                                                <% }  else if(user.role_id == '4') { %>
+                                                <td>Short Term Renters</td>
+                                                <% }  else if(user.role_id == '5') { %>
+                                                <td>Executive Feature Tenant</td>
+                                                <% }  else { %>
+                                                <td>No Role</td>
+                                                <% } %>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:../../partials/_footer.html -->
+    <%- include("../../partials/footer2") %>

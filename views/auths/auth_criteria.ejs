@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Taltech</title>
+    <link rel="icon" href="/assets/img/logo.jpg">
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/assets/css/animate.css">
+
+    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+
+    <link rel="stylesheet" href="/assets/css/themify-icons.css">
+
+    <link rel="stylesheet" href="/assets/css/flaticon.css">
+
+    <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="/assets/css/slick.css">
+    <link rel="stylesheet" href="/assets/css/all.css">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/nav.css">
+</head>
+
+<body>
+    <!-- nav -->
+    <%- include("../partials/alerts") %>
+    <header class="main_menu">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-expand-lg navbar-dark">
+                        <a class="navbar-brand" href="/">
+                            <span><img src="/assets/img/logo.jpg" style="width: 100px;" alt="logo"></span>
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse main-menu-item justify-content-end"
+                            id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="/" style="color: #fff;">Home</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/about">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/feature">Featured Properties</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/contact">Contact</a>
+                                </li>
+                            </ul>
+                            <!-- <a href="signup.html" class="btn btn-primary">Sign Up</a> -->
+                            <a href="/login" class="btn btn-outline-primary">Login</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- contact -->
+    <section class="contact-section section_padding form">
+        <div class="container">
+            <div class="d-none d-sm-block mb-5 pb-4">
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="contact-title text-center">Set Criteria</h2>
+                </div>
+            </div>
+            <div class="col-lg-6 m-auto">
+                <form method="POST" action="/set-criteria">
+                    <div class="form-group">
+                        <select class="form-control" name="property">
+                            <option value="" selected disabled>Property Type</option>
+                            <option>House</option>
+                            <option>Apartment</option>
+                            <option>Office</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="offer">
+                            <option value="" selected disabled>Offer Type</option>
+                            <option>Sell</option>
+                            <option>Rent</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="price">
+                            <option value="" selected disabled>Price</option>
+                            <option>below 200000</option>
+                            <option>below 300000</option>
+                            <option>below 400000</option>
+                            <option>below 500000</option>
+                            <option>above 500000</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="city">
+                            <option value="" selected disabled>City</option>
+                            <option>Lagos</option>
+                            <option>Abuja</option>
+                            <option>Port Harcourt</option>
+                            <option>Enugu</option>
+                            <option>Kaduna</option>
+                            <option>Sokoto</option>
+                            <option>Benin</option>
+                            <option>Warri</option>
+                            <option>Onitsha</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="Name" name="neighbourhood"
+                            placeholder="Neighbourhood" required>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="bedrooms">
+                            <option value="" selected disabled>Bedrooms</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="bathrooms">
+                            <option value="" selected disabled>Bathrooms</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5+</olption>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <p>Already have an account? <a href="/login">Login</a></p>
+            </div>
+            <!-- <div class="col-lg-6">
+<div class="media contact-info">
+<span class="contact-info__icon"><i class="ti-home"></i></span>
+<div class="media-body">
+<h3>Address.</h3>
+<p>Ralex Glass House, 2, Metal Box Road, Off Acme Road, <br> Ikeja industrial Estate, Ogba-Ikeja, Lagos State.</p>
+</div>
+</div>
+<div class="media contact-info">
+<span class="contact-info__icon"><i class="ti-tablet"></i></span>
+<div class="media-body">
+<h3>Phone Number</h3>
+<p>+234-806-378-6241</p>
+</div>
+</div>
+<div class="media contact-info">
+<span class="contact-info__icon"><i class="ti-email"></i></span>
+<div class="media-body">
+<h3>Email</h3>
+<p>info@greenmousetech.com</p>
+</div>
+</div>
+</div> -->
+        </div>
+        </div>
+    </section>
+
+
+
+    <!-- script -->
+    <script src="/assets/js/jquery-1.12.1.min.js"></script>
+
+    <script src="/assets/js/popper.min.js"></script>
+
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <script src="/assets/js/jquery.magnific-popup.js"></script>
+
+    <script src="/assets/js/swiper.min.js"></script>
+
+    <script src="/assets/js/masonry.pkgd.js"></script>
+
+    <script src="/assets/js/owl.carousel.min.js"></script>
+    <script src="/assets/js/jquery.counterup.min.js"></script>
+    <script src="/assets/js/waypoints.min.js"></script>
+    <script src="/assets/js/owl.carousel2.thumbs.min.js"></script>
+
+    <script src="/assets/js/contact.js"></script>
+
+    <script src="/assets/js/jquery.ajaxchimp.min.js"></script>
+
+    <script src="/assets/js/jquery.validate.min.js"></script>
+
+    <script src="/assets/js/jquery.form.js"></script>
+
+    <script src="/assets/js/slick.min.js"></script>
+
+    <script src="/assets/js/custom.js"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+    </script>
+</body>
+
+</html>

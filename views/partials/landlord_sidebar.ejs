@@ -1,0 +1,56 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar" style="background: #915A58;">
+    <ul class="nav">
+        <li class="nav-item nav-profile">
+            <div class="nav-link">
+                <div class="profile-name">
+                    <p class="name text-light">
+                        Welcome
+                    </p>
+                    <p class="designation text-light">
+                        Landlord
+                    </p>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="/home">
+                <i class="fa fa-home menu-icon text-light"></i>
+                <span class="menu-title text-light">Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="/tenants/count">
+                <i class="fa fa-home menu-icon text-light"></i>
+                <span class="menu-title text-light">Tenants</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="/tenants/pairings">
+                <i class="fa fa-home menu-icon text-light"></i>
+                <span class="menu-title text-light">Compactible Tenants</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="/exectenants/pairings">
+                <i class="fa fa-home menu-icon text-light"></i>
+                <span class="menu-title text-light">Executive Feature Tenants</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="/password">
+                <i class="fas fa-user-cog menu-icon text-light"></i>
+                <span class="menu-title text-light">Change Password</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard_dr" onclick="event.preventDefault();
+            document.getElementById('logout-menu').submit();">
+                <div class="pull-left"><i class="fas fa-power-off menu-icon text-light"></i><span class="menu-title">Logout</span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+            <form id="logout-menu" action="/logout" method="POST" style="display: none;">
+            </form>
+        </li>
+    </ul>
+</nav>

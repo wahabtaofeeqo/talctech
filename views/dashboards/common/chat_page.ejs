@@ -1,0 +1,110 @@
+<% if(user_roles == '1') { %>
+<%- include("../../partials/admin_header") %>
+<%- include("../../partials/admin_sidebar") %>
+<% } else if(user_roles == '2') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/landlord_sidebar") %>
+<% } else if(user_roles == '3') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/user_sidebar") %>
+<% } else if(user_roles == '4') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/renter_sidebar") %>
+<% } else if(user_roles == '5') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/exec_sidebar") %>
+<% } %>
+
+
+
+<!-- partial -->
+<div class="main-panel">
+    <%- include("../../partials/alerts") %>
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">
+                Chats
+            </h3>
+            <%- include("../../partials/breadcrumb") %>
+        </div>
+        <!-- blank page end -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mt-5">
+                            <div class="timeline chat-content">
+                                <%  for (let i = 0; i < chats.length; i++ ) { %>
+                                <%  if(chats[i].sender_id != session_id) { %>
+                                <div class="timeline-wrapper timeline-wrapper-secondary">
+                                    <div class="timeline-badge" style="background-color: #C17267;"></div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-body">
+                                            <p><%= chats[i].message %></p>
+                                        </div>
+                                        <div class="timeline-footer d-flex align-items-center">
+                                            <br>
+                                            <span><%= chats[i].receiver.name %></span>
+                                            <span class="ml-auto font-weight-bold"><%= chats[i].createdAt %></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } else { %>
+                                <div class="timeline-wrapper timeline-inverted timeline-wrapper-primary">
+                                    <div class="timeline-badge" style="background-color: #F1D79D;"></div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-body">
+                                            <p><%= chats[i].message %></p>
+                                        </div>
+                                        <div class="timeline-footer d-flex align-items-center">
+                                            <br>
+                                            <span class="ml-auto font-weight-bold"><%= chats[i].createdAt %></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } %>
+
+                                <%  } %>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <form class="forms-sample" id="chat-form">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Enter text"
+                                                    aria-label="Recipient's username" name="msg">
+                                                <input type="hidden" name="property_id" id="property_id"
+                                                    value="<%=  property.id %>">
+
+                                                <%  if(receiver_id != null && receiver_id != "") { %>
+                                                <input type="hidden" name="sender_id" id="sender_id"
+                                                    value="<%= session_id %>">
+                                                <input type="hidden" name="receiver_id" id="receiver_id"
+                                                    value="<%= receiver_id %>">
+                                                <% } else { %>
+                                                <input type="hidden" name="sender_id" id="sender_id"
+                                                    value="<%= session_id %>">
+                                                <input type="hidden" name="receiver_id" id="receiver_id"
+                                                    value="<%= property.user_id %>">
+                                                <% } %>
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-sm btn-primary"
+                                                        style="color: #fff; width: 100%; padding: 10px; background-color: #C17267;"
+                                                        type="submit" name="messageuser">Send</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div id="chat_ending"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:../../partials/_footer.html -->
+    <%- include("../../partials/footer2") %>

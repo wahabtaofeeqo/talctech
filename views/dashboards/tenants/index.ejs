@@ -1,0 +1,93 @@
+<%- contentFor('body') %>
+    <div class="content-wrapper">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">
+                 Dashboard
+            </h1>
+
+            <% if(user.role_id == 3) { %>
+                 <a href="#" href="#" data-toggle="modal" data-target="#upgradeModal" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
+                <i class="fas fa-download fa-sm text-white-50"></i> Upgrade Account </a>
+            <% } %>
+        </div>
+
+        <% if(properties.length < 1) { %>
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center m-auto">You currently have not posted any properties</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+        <!-- blank page end -->
+        <div class="card-columns">
+            <%  for (let i = 0; i < properties.length; i++ ) { %>
+            <div class="card">
+                <div class="owl-carousel owl-theme full-width" style="overflow: hidden;">
+                    <div class="item">
+                        <img src="/uploads/properties/<%= properties[i].image_front %>" alt="image" style="height: 200px;" />
+                    </div>
+                    <div class="item">
+                        <img src="/uploads/properties/<%= properties[i].image_side %>" alt="image" />
+                    </div>
+                    <div class="item">
+                        <img src="/uploads/properties/<%= properties[i].image_rear %>" alt="image" />
+                    </div>
+                </div>
+                <div class="card-body">
+                    <span><i class="fas fa-map-marker-alt mr-2"
+                            style="color: #C17267;"></i><%= properties[i].city %></span> |
+                    <span><%= properties[i].neighbourhood %></span>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <i class="fas fa-money-bill-alt mr-2"
+                                style="color: #C17267;"></i>(₦)<%= properties[i].price %>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <i class="fas fa-list-alt mr-2" style="color: #C17267;"></i> Type:
+                            <%= properties[i].property_type %>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <i class="fas fa-bed  mr-2" style="color: #C17267;"></i><%= properties[i].bedrooms %>
+                        </div>
+                        <div class="col-6">
+                            <i class="fas fa-bath  mr-2" style="color: #C17267;"></i><%= properties[i].bathrooms %>
+                        </div>
+                    </div>
+                    <hr>
+                    <a href="/properties/<%= properties[i].id %>" class="btn btn-primary"
+                        style="color: #fff; width: 100%; padding: 10px; background-color: #C17267;">View</a>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Logout Modal-->
+        <div class="modal fade" id="upgradeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Upgrade?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Upgrade" below to upgrade your account to Executive Tenant Account.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary btn-upgrade" href="#">Upgrade</a>
+                </div>
+            </div>
+        </div>

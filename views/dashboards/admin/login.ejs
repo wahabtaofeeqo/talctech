@@ -1,0 +1,22 @@
+<%- contentFor('links') %>
+   <link rel="stylesheet" href="/assets/css/admin.css">
+
+<%- contentFor('body') %>
+
+
+    <div class="main-div text-center">
+      <a href="#">
+        <img src="/assets/img/logo.jpg" alt="logo" width="200px">
+      </a>
+      <p class="text-top">Login by entering your information below.</p>
+      <hr class="line">
+      <form action="/admin/login" method="POST">
+        <input type="email" name="email" placeholder="Enter Your Email" required>
+        <br>
+        <input type="password" name="password" placeholder="*********" required>
+        <br>
+        <br>
+        <button type="submit" class="btn">Login</button>
+        <p class="forgot-password">Forgot password? <a href="#">Contact your admin.</a></p>
+      </form>
+    </div>

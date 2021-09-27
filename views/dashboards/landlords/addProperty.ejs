@@ -1,0 +1,246 @@
+<%- contentFor('body') %>
+
+   <div class="content-wrapper">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">
+                 <%= !edit ? 'Add Property' : 'Edit Property' %>
+            </h1>
+
+            <% if(!isFree && !edit) { %>
+                 <span class="text-danger font-weight-bold">Fee: N700</span>
+            <% } %>
+
+        </div>
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title"></h4>
+                        <form class="form-sample" action="<%= !edit ? '/landlord/add-property' : '/landlord/edit-property' %>" method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Property Type</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="property" required>
+                                                <% if(edit) { %>
+                                                <option selected><%= property.property_type %>
+                                                </option>
+                                                <% } %>
+                                                <option>House</option>
+                                                <option>Apartment</option>
+                                                <option>Office</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Offer Type</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="offer" required>
+                                                <% if(edit) { %>
+                                                <option selected><%= property.offer_type %></option>
+                                                <% } %>
+                                                <option>Sell</option>
+                                                <option>Rent</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Price</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="price" required>
+                                                <% if(edit) { %>
+                                                <option selected><%= property.price %></option>
+                                                <% } %>
+                                                <option>below 200000</option>
+                                                <option>below 300000</option>
+                                                <option>below 400000</option>
+                                                <option>below 500000</option>
+                                                <option>above 500000</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">City</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="city" required>
+                                                <% if(edit) { %>
+                                                <option selected><%= property.city %></option>
+                                                <% } %>
+                                                <option>Lagos</option>
+                                                <option>Abuja</option>
+                                                <option>Port Harcourt</option>
+                                                <option>Enugu</option>
+                                                <option>Kaduna</option>
+                                                <option>Sokoto</option>
+                                                <option>Benin</option>
+                                                <option>Warri</option>
+                                                <option>Onitsha</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% if(edit) { %>
+                            <input type="hidden" value="<%= property.id %>" name="id">
+                            <% } %>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Neighbourhoood</label>
+                                        <div class="col-sm-9">
+                                            <% if(!edit) { %>
+                                            <input type="text" class="form-control" name="neighbourhood" required>
+                                            <% }  else { %>
+                                            <input type="text" class="form-control" name="neighbourhood"
+                                                value="<%= property.neighbourhood %>" required>
+                                            <% }%>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Bedrooms</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="bedrooms" required>
+                                                <% if(edit) { %>
+                                                <option selected><%= property.bedrooms %></option>
+                                                <% } %>
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5+</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Bathrooms</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="bathrooms" required>
+                                                <% if(edit) { %>
+                                                <option selected><%= property.bathrooms %></option>
+                                                <% } %>
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5+</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Front</label>
+                                        <div class="input-group col-sm-9">
+                                            <input type="file" name="image_front" class="file-upload-default">
+                                            <!-- <input type="text" class="form-control file-upload-info" disabled
+                                                placeholder="Upload Image">
+                                            <span class="input-group-append">
+                                                <button class="file-upload-browse btn btn-dark"
+                                                    type="button">Upload</button>
+                                            </span> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Default Images</label>
+                                        <div class="col-sm-9">
+                                            <select name="front" class="form-control">
+                                                <option value="1.jpg">1</option>
+                                                <option value="2.jpg">2</option>
+                                                <option value="3.jpg">3</option>
+                                                <option value="4.jpg">4</option>
+                                                <option value="5.jpg">5</option>
+                                                <option value="6.jpg">6</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Side</label>
+                                        <div class="input-group col-sm-9">
+                                            <input type="file" name="image_side" class="file-upload-default">
+                                            <!-- <input type="text" class="form-control file-upload-info" disabled
+                                                placeholder="Upload Image">
+                                            <span class="input-group-append">
+                                                <button class="file-upload-browse btn btn-dark"
+                                                    type="button">Upload</button>
+                                            </span> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Default Images</label>
+                                        <div class="col-sm-9">
+                                            <select name="side" class="form-control">
+                                                <option value="1.jpg">1</option>
+                                                <option value="2.jpg">2</option>
+                                                <option value="3.jpg">3</option>
+                                                <option value="4.jpg">4</option>
+                                                <option value="5.jpg">5</option>
+                                                <option value="6.jpg">6</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Rear</label>
+                                        <div class="input-group col-sm-9">
+                                            <input type="file" name="image_rear" class="file-upload-default">
+                                           <!--  <input type="text" class="form-control file-upload-info" disabled
+                                                placeholder="Upload Image">
+                                            <span class="input-group-append">
+                                                <button class="file-upload-browse btn btn-dark"
+                                                    type="button">Upload</button>
+                                            </span> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Default Images</label>
+                                        <div class="col-sm-9">
+                                            <select name="rear" class="form-control">
+                                                <option value="1.jpg">1</option>
+                                                <option value="2.jpg">2</option>
+                                                <option value="3.jpg">3</option>
+                                                <option value="4.jpg">4</option>
+                                                <option value="5.jpg">5</option>
+                                                <option value="6.jpg">6</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12  d-flex align-items-center justify-content-center">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <button type="submit"
+                                            class="btn btn-outline-dark btn-block"><%= !edit ? 'Add Property' : 'Update Property' %></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,94 @@
+<%- contentFor('body') %>
+
+	<!-- Navbar -->
+	<%- include('../includes/navbar') %>
+
+	<section class="breadcrumb breadcrumb_bg" style="background-image: url(/img/4.jpg); background-position: center; background-size: cover;">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="breadcrumb_iner text-center">
+						<div class="breadcrumb_iner_item">
+							<h2>Property Details</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Details -->
+	<div class="container py-5">
+		<div class="card">
+			<div class="card-header">
+				
+			</div>
+
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">
+				  	Property Type: <strong class="px-3"><%= property.property_type %></strong>
+				</li>
+
+				<li class="list-group-item">
+				  	Property Offer Type:
+				  	<strong class="px-3"><%= property.offer_type %></strong>
+				</li>
+
+				<li class="list-group-item">
+				  	Property City:
+				  	<strong class="px-3"><%= property.city %></strong>
+				</li>
+
+				<li class="list-group-item">
+					Neighbourhood:
+					<strong class="px-3"><%= property.neighbourhood %></strong>
+				</li>
+				 
+				<li class="list-group-item">
+					Price: 
+					<strong class="px-3"><%= property.price %></strong>
+				</li>
+
+				<li class="list-group-item">
+					Bedrooms:
+					<strong class="px-3"><%= property.bedrooms %></strong>
+				</li>
+
+				<li class="list-group-item">
+					Bathrooms: 
+					<strong class="px-3"><%= property.bathrooms %></strong>
+				</li>
+			</ul>
+
+			<div class="card-body">
+				<% if(user) { %>
+
+					<h4 class="mb-4">Property Owner:</h4>
+					<div class="">
+						<h5 class="h6 mb-4">Name: <strong class="px-3"><%= property.user.name %></strong></h5>
+						<h5 class="h6 mb-4">Phone: <strong class="px-3"><%= property.user.phone %></strong></h5>
+						<h5 class="h6 mb-4">Email: <strong class="px-3"><%= property.user.email %></strong></h5>
+					</div>
+
+					<div>
+						<% if(user.role_id == 5 && !isShortTerms) { %>
+							<button class="btn btn-info px-5 btn-request" data-id="<%= property.id %>">
+								Request For View
+							</button>
+						<% } %>
+
+						<% if((user.role_id == 3 || user.role_id == 5) && isShortTerms) { %>
+							<a href="/book/<%= property.id %>" class="btn btn-danger px-5">Book</a>
+						<% } %>
+					</div>
+				<% } %>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Project Count -->
+	<%- include('../includes/projects') %>
+
+	<!-- Footer -->
+	<%- include('../includes/footer') %>

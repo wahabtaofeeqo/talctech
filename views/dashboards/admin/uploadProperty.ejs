@@ -1,0 +1,41 @@
+<%- contentFor('body') %>
+
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h4 class="h3 mb-0 text-gray-800">
+        	Property Video
+        </h4>
+    </div>
+
+    <div>
+    	<div class="card">
+    		<div class="card-header">
+                <% if(request) { %>
+                    <h4 class="mb-0 h6">
+                        Tenant: <b><%= request.user.name %></b>
+                    </h4>
+                <% } %>
+    		</div>
+    		<div class="card-body">
+    			<form action="/admin/properties/upload" method="POST" enctype="multipart/form-data">
+
+                    <input type="hidden" name="tenant_id" value="<%= (request) ? request.user.id : '' %>">
+                    <input type="hidden" name="request_id" value="<%= (request) ? request.id : '' %>">
+                    
+                    <div class="form-group">
+                        <input type="name" name="name" value="<%= (request) ? request.property.property_type : '' %>" class="form-control" placeholder="Property name" required>
+                    </div>
+    				<div class="form-group">
+    					<textarea rows="4" placeholder="Description" name="description" class="form-control"></textarea>
+    				</div>
+
+    				<div class="form-group mb-4">
+    					<input type="file" name="file" required accept="video/mp4">
+    				</div>
+
+    				<button class="btn btn-danger px-5">
+                        <%= (request) ? 'Send Video' : 'Upload Video' %>            
+                    </button>
+    			</form>
+    		</div>
+    	</div>
+    </div>

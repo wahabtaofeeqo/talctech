@@ -1,0 +1,499 @@
+<%- contentFor('links') %>
+	<link rel="stylesheet" href="assets/css/new.css">
+<style>
+    .btn-outline-primary {
+  margin-left: 15px;
+  padding: 10px 30px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.btn-outline-primary:hover {
+  color: #fff !important;
+  background-color: #030CBD;
+  border-radius: 4px;
+}
+</style>
+<main>
+	<%- contentFor('body') %>
+		<!-- nav -->
+		<header class="main_menu home_menu">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-lg-12">
+						<nav class="navbar navbar-expand-lg navbar-light">
+							<a class="navbar-brand" href="/"> 
+							  <img src="assets/img/logo.jpg" style="width: 100px;" alt="logo"> 
+							</a>
+							<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+							</button>
+							<div class="collapse navbar-collapse main-menu-item justify-content-end" id="navbarSupportedContent">
+								<ul class="navbar-nav">
+									<li class="nav-item active">
+									<a class="nav-link" href="/">Home</a>
+									</li>
+									<li class="nav-item">
+									<a class="nav-link" href="/about">About</a>
+									</li>
+									<li class="nav-item">
+									<a class="nav-link" href="/feature">Featured Properties</a>
+									</li>
+									<li class="nav-item">
+									<a class="nav-link" href="/rentals">Rentals</a>
+									</li>
+									<li class="nav-item">
+									<a class="nav-link" href="/contact">Contact</a>
+									</li>
+								</ul>
+								<% if(user) {%>
+									<a href="/dashboard" class="btn btn-outline-primary">Dashboard</a>
+								<% } else { %>
+									<a href="/signup" class="btn btn-primary">Sign Up</a>
+									<a href="/login" class="btn btn-outline-primary">Login</a>
+								<% } %>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!-- Welcome Banner Section Starts -->
+        <div class="container-fluid welcome-div">
+            <div class="row">
+                <div class="col-lg-12 welcome-text">
+                    <h1>Find Your Home!</h1>
+                    <p>Making renting as easy as A,B,C</p>
+                    <div class="welcome-button">
+                        <a href="/about" class="btn-get-started" data-bs-toggle="modal" data-bs-target="#exampleModal">Learn More <i class="fas fa-sign-in-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Welcome Banner Section Ends -->
+
+		<!-- banner content 
+		<section class="banner_part">
+			<div class="container">
+				<div class="row align-items-center justify-content-between">
+					<div class="col-xl-6 col-md-6">
+						<div class="banner_text">
+						<div class="banner_text_iner text-left">
+						<h2 style="color: #fff;">Find Your Home</h2>
+						<h3 style="color: #fff;">Making renting as easy as A,B,C</h3>
+						<a href="about.html" class="btn mt-4" style="background-color: #FCFBBB; padding: 10px; color: #C17267; font-weight: bold;">LEARN MORE <i class="ti-angle-right"></i> </a>
+						</div>
+						</div>
+					</div>
+					<div class="col-xl-6 col-md-6 second">
+						<div class="banner_bg">
+						</div>
+					</div>
+				</div>
+			</div>
+            -->
+
+			<div class="hero-app-1 custom-animation"><img src="assets/img/animate_icon/icon_1.png" alt=""></div>
+			<div class="hero-app-5 custom-animation2"><img src="assets/img/animate_icon/icon_3.png" alt=""></div>
+			<div class="hero-app-7 custom-animation3"><img src="assets/img/animate_icon/icon_2.png" alt=""></div>
+			<div class="hero-app-8 custom-animation"><img src="assets/img/animate_icon/icon_4.png" alt=""></div>
+		</section>
+
+		<!-- services -->
+		<section class="cta_part">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-lg-12">
+						<div class="cta_part_iner">
+							<div class="cta_part_text">
+								<h1>OUR SERVICES</h1>
+								<p> We provide the perfect service for</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- services -->
+		<section class="service_part section_bg_2 section_padding">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4 col-sm-6">
+					  <img src="assets/img/rent-info.png" alt="">
+					</div>
+
+					<div class="col-lg-4 col-sm-6">
+					  <img src="assets/img/properties-info.png" alt="">
+					</div>
+
+					<div class="col-lg-4 col-sm-6">
+					  <img src="assets/img/counsultant-info.png" alt="">
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="container">
+			<div class="card">
+				<div class="card-body">
+
+					<form>
+						<div class="row">
+							<div class="col-md-3 form-group">
+								<label>Property Type</label>
+								<select class="form-control" name="type">
+									<option value="1">Rent</option>
+									<option value="0">Sale</option>
+								</select>
+							</div>
+
+							<div class="col-md-4 form-group">
+								<label>Location</label>
+								<input type="text" name="location" class="form-control">
+							</div>
+
+							<div class="col-md-3">
+								<label>Short Terms/ Normal</label>
+								<select class="form-control" name="kind">
+									<option value="1">Normal</option>
+									<option value="0">Short Term</option>
+								</select>	
+							</div>
+
+							<div class="col-md-2" style="display: flex; align-items: center;">
+								<button class="btn btn-primary mt-2">Filter</button>
+							</div>
+						</div>
+					</form>
+
+					<form class="form-inline d-none">
+						  <label class="sr-only" for="inlineFormInputName2">Name</label>
+						  <input type="text" class="form-control mb-2 mr-sm-2" id="" placeholder="Type">
+
+						  <label class="sr-only" for="">Username</label>
+						  <div class="input-group mb-2 mr-sm-2">
+						    <div class="input-group-prepend">
+						      <div class="input-group-text">@</div>
+						    </div>
+						    <input type="text" class="form-control" id="" placeholder="Username">
+						  </div>
+
+						  <button type="submit" class="btn btn-primary mb-2">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="blog_part section_padding">
+			<div class="container">
+
+				<div class="row">
+					
+				</div>
+				
+				<div class="row">
+					<!-- Properties -->
+					<% for(let i = 0; i < properties.length; i++) { %>
+
+						<div class="col-sm-6 col-lg-4 col-xl-4 d-sm-block mb-4">
+							<div class="single-home-blog">
+								<div class="card">
+									
+									<img src="uploads/<%= (isShortTerms) ? 'shortproperties/' + properties[i].image_front : 'properties/' +  properties[i].image_front %>" class="card-img-top" alt="Property">
+									
+									
+									<div class="card-body">
+					                    <span><i class="fas fa-map-marker-alt mr-2"
+					                            style="color: #C17267;"></i><%= properties[i].city %></span> |
+					                    <span><%= properties[i].neighbourhood %></span>
+					                    <hr>
+					                    <div class="row">
+					                        <div class="col-12">
+					                            <i class="fas fa-money-bill-alt mr-2"
+					                                style="color: #C17267;"></i>(₦)<%= properties[i].price %>
+					                        </div>
+					                    </div>
+					                    <hr>
+					                    <div class="row">
+					                        <div class="col-12">
+					                            <i class="fas fa-list-alt mr-2" style="color: #C17267;"></i> Type:
+					                            <%= properties[i].property_type %>
+					                        </div>
+					                    </div>
+					                    <hr>
+					                    <div class="row">
+					                        <div class="col-6">
+					                            <i class="fas fa-bed  mr-2" style="color: #C17267;"></i><%= properties[i].bedrooms %>
+					                        </div>
+					                        <div class="col-6">
+					                            <i class="fas fa-bath  mr-2" style="color: #C17267;"></i><%= properties[i].bathrooms %>
+					                        </div>
+					                    </div>
+					                    <hr>
+					                    <% if(isShortTerms) { %>
+					                    	<a href="/booking/<%= properties[i].id %>" class="btn btn-primary"
+						                        style="color: #fff; width: 100%; padding: 10px; background-color: #030CBD7;">View and Book
+						                    </a>
+					                	<% } else { %>
+					                		<a href="/properties/<%= properties[i].id %>" class="btn btn-primary"
+						                        style="color: #fff; width: 100%; padding: 10px; background-color: #030CBD7;">View
+						                    </a>
+					                	<% } %>
+					                </div>
+								</div>
+							</div>
+						</div>
+
+					<% } %>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- properties -->
+		<section class="cta_part">
+		<div class="container">
+		<div class="row align-items-center">
+		<div class="col-lg-12">
+		<div class="cta_part_iner">
+		<div class="cta_part_text">
+		<h2>LOOKING FOR PROPERTIES</h2>
+		<p>What kind of property are you looking for? We will help you.</p>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		</section>
+
+		<!-- properties -->
+		<section class="team_member_section section_padding">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4 col-sm-6">
+						<div class="single_team_member">
+							<img src="img/40.jpg" alt="">
+							<div class="single_team_text">
+								<h3><a href="#"> Family Home</a></h3>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-sm-6">
+						<div class="single_team_member">
+							<img src="img/10.jpg" alt="">
+							<div class="single_team_text">
+								<h3><a href="#">Apartment for rent</a></h3>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-sm-6">
+						<div class="single_team_member">
+							<img src="img/4.jpg" alt="">
+							<div class="single_team_text">
+								<h3><a href="#">Office Building</a></h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Counter -->
+		<%- include('../includes/projects') %>
+
+		<!-- review -->
+		<section class="review_part padding_top d-none">
+		<div class="container-fluid">
+		<div class="row justify-content-center">
+		<div class="col-lg-5">
+		<div class="section_tittle text-center">
+		<h2>What our Client have to say</h2>
+		</div>
+		</div>
+		</div>
+		<div class="row d-flex justify-content-center align-items-center">
+		<div class="col-md-8 col-lg-5">
+		<div class="review_text_item">
+		<div class="row">
+		<div class="col-lg-7 col-sm-8">
+		<div class="owl-carousel owl-theme" id="sync2">
+		<div class="owl-thumb-item">
+		<div class="slider-thumbnails">
+		<!-- <img src="img/client/client1.png" alt="slideimg" class="image"> -->
+		</div>
+		</div>
+		<div class="owl-thumb-item">
+		<div class="slider-thumbnails">
+		<!-- <img src="img/client/client_.png" alt="slideimg" class="image"> -->
+		</div>
+		</div>
+		<div class="owl-thumb-item">
+		<div class="slider-thumbnails">
+		<!-- <img src="img/client/client_.png" alt="slideimg" class="image"> -->
+		</div>
+		</div>
+		<div class="owl-thumb-item">
+		<div class="slider-thumbnails">
+		<!-- <img src="img/client/client_.png" alt="slideimg" class="image"> -->
+		</div>
+		</div>
+		<div class="owl-thumb-item">
+		<div class="slider-thumbnails">
+		<!-- <img src="img/client/client_.png" alt="slideimg" class="image"> -->
+		</div>
+		  </div>
+		  <div class="owl-thumb-item">
+		  <div class="slider-thumbnails">
+		  <!-- <img src="img/client/client_.png" alt="slideimg" class="image"> -->
+		  </div>
+		  </div>
+		  <div class="owl-thumb-item">
+		  <div class="slider-thumbnails">
+		  <!-- <img src="img/client/client_.png" alt="slideimg" class="image"> -->
+		  </div>
+		  </div>
+
+
+		</div>
+		</div>
+		<div class="col-lg-12">
+		<div class="slider owl-carousel owl-theme" id="sync1">
+		<div class="client_review_text">
+		<p>Own midst. Behold sea created male he together of That Said fourth deep
+		abundantly
+		have light night beginning rule darkness seed darkness which land saying
+		moveth.
+		Fifth shall wont signs, can seasons green days gathered great</p>
+		<!-- <img src="img/client/client_logo.png" alt="#"> -->
+		<div class="client_info">
+		<h3>Tunde</h3>
+		<h5>Manager, Vision</h5>
+		</div>
+		</div>
+		<div class="client_review_text">
+		<p>Own midst. Behold sea created male he together of That Said fourth deep
+		abundantly
+		have light night beginning rule darkness seed darkness which land saying
+		moveth.
+		Fifth shall wont signs, can seasons green days gathered great</p>
+		<!-- <img src="img/client/client_logo.png" alt="#"> -->
+		<div class="client_info">
+		<h3>Tunde</h3>
+		<h5>Manager, Vision</h5>
+		</div>
+		</div>
+		<div class="client_review_text">
+		<p>Own midst. Behold sea created male he together of That Said fourth deep
+		abundantly
+		have light night beginning rule darkness seed darkness which land saying
+		moveth.
+		Fifth shall wont signs, can seasons green days gathered great</p>
+		<!-- <img src="img/client/client_logo.png" alt="#"> -->
+		<div class="client_info">
+		<h3>Clementina</h3>
+		<h5>Manager, Vision</h5>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		</section>
+
+		<!-- partners -->
+		<section class="happy_client" style="background-color: #fff;">
+			<div class="container">
+			  	<div class="row align-items-center">
+					<div class="col-lg-12">
+						<div class="cta_part_iner">
+							<div class="cta_part_text">
+								<h2 class="text-center partner">OUR PARTNERS</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<% for(let i = 0; i < partners.length; i++) { %> 
+						<div class="col-md-2">
+							<h6 class="mb-3">
+								<%= partners[i].name %>
+							</h6>
+							<div class="single_happy_client">
+								<img src="/uploads/partners/<%= partners[i].logo %>" alt="<%= partners[i].name %>">
+							</div>
+						</div>
+					<% } %>
+				</div>
+		</section>
+
+		<!-- footer -->
+		<footer class="footer-area">
+			<div class="container">
+				<div class="row justify-content-between">
+					<div class="col-sm-6 col-md-6 col-xl-3">
+						<div class="single-footer-widget footer_1 footer_2">
+							<a href="/"> 
+							  <!-- <img src="img/logo.jpg" style="width: 100px;" alt="">  -->
+							</a>
+							<p>Affordable real estate with great value </p>
+							<div class="social_icon">
+								<a href="#"> <i class="ti-facebook"></i> </a>
+								<a href="#"> <i class="ti-twitter-alt"></i> </a>
+								<a href="#"> <i class="ti-instagram"></i> </a>
+								<a href="#"> <i class="ti-skype"></i> </a>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-6 col-md-6 col-xl-4">
+						<div class="single-footer-widget footer_2">
+							<h4>Newsletter</h4>
+							<p>Subscribe to our newsletter</p>
+							<form action="#">
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<input type="text" class="form-control" placeholder='Enter email address' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
+										<div class="input-group-append">
+											<button class="btn" type="button"><i class="ti-angle-right"></i></button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="col-sm-12 col-md-8 col-xl-3">
+						<div class="single-footer-widget footer_3">
+							<h4>Contact</h4>
+							<p> talctechpro202@yahoo.com </p><br>
+							<p> info@talctechng.com</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="copyright_part_text text-center">
+							<div class="row">
+								<div class="col-lg-12">
+									<p class="footer-text m-0">
+										Copyright &copy;<script>document.write(new Date().getFullYear());</script> <a href="#">Taltech</a> - All Rights Reserved
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+</main>

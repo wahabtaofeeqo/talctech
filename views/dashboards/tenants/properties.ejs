@@ -1,0 +1,71 @@
+<%- contentFor('body') %>
+    <div class="content-wrapper">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">
+                 <%= title %>
+            </h1>
+        </div>
+
+        <% if(properties.length < 1) { %>
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center m-auto">No properties Found</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+        <!-- blank page end -->
+        <div class="card-columns">
+            <%  for (let i = 0; i < properties.length; i++ ) { %>
+            <div class="card">
+                <div class="owl-carousel owl-theme full-width" style="overflow: hidden;">
+                    <div class="item">
+                        <img src="/uploads/<%= (type == 'short') ? 'shortproperties/' + properties[i].image_front : 'properties/' + properties[i].image_front %>" alt="image" style="height: 200px;" />
+                    </div>
+                   <div class="item">
+                        <img src="/uploads/<%= (type == 'short') ? 'shortproperties/' + properties[i].image_side : 'properties/' + properties[i].image_side %>" alt="image" style="height: 200px;" />
+                    </div>
+                    <div class="item">
+                        <img src="/uploads/<%= (type == 'short') ? 'shortproperties/' + properties[i].image_rear : 'properties/' + properties[i].image_rear %>" alt="image" style="height: 200px;" />
+                    </div>
+                </div>
+                <div class="card-body">
+                    <span><i class="fas fa-map-marker-alt mr-2"
+                            style="color: #C17267;"></i><%= properties[i].city %></span> |
+                    <span><%= properties[i].neighbourhood %></span>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <i class="fas fa-money-bill-alt mr-2"
+                                style="color: #C17267;"></i>(₦)<%= properties[i].price %>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <i class="fas fa-list-alt mr-2" style="color: #C17267;"></i> Type:
+                            <%= properties[i].property_type %>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <i class="fas fa-bed  mr-2" style="color: #C17267;"></i><%= properties[i].bedrooms %>
+                        </div>
+                        <div class="col-6">
+                            <i class="fas fa-bath  mr-2" style="color: #C17267;"></i><%= properties[i].bathrooms %>
+                        </div>
+                    </div>
+                    <hr>
+                    <a href="<%= (type == 'short') ? '/booking/' + properties[i].id : '/properties/' + properties[i].id %>" class="btn btn-primary"
+                        style="color: #fff; width: 100%; padding: 10px; background-color: #C17267;">
+                        <%= (type == 'short') ? 'View and Book' : 'View' %>
+                    </a>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </div>

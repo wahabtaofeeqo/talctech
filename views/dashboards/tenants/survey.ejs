@@ -1,0 +1,45 @@
+<%- contentFor('body') %>
+
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Property Survey</h1>
+    </div>
+
+    <div class="card">
+        <div class="card-header"></div>
+        <div class="card-body">
+            <form method="POST" action="/api/submit-survey" id="ajaxForm">
+
+                <input type="hidden" name="property_id" value="<%= booking.property.id %>">
+
+                <div class="form-group">
+                    <label>
+                        How would you rate the accommodation, from a scale of 1 to 10
+                    </label>
+                    <textarea rows="3" required name="answer1" class="form-control" placeholder="Answer"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Did the Renter give you the keys to the accommodation in a timely manner?
+                    </label>
+                    <textarea rows="3" required name="answer2" class="form-control" placeholder="Answer"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Was the bedroom tidy, rodent free and insect free? If there was any rat, insect or other unpleasant thing in the accommodation, please specify?
+                    </label>
+                    <textarea rows="3" required name="answer3" class="form-control" placeholder="Answer"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        If you have any other concern about the accommodation, kindly indicate below?
+                    </label>
+                    <textarea rows="3" required name="answer4" class="form-control" placeholder="Answer"></textarea>
+                </div>
+
+                <button class="btn btn-danger px-5">Submit Survey</button>
+            </form>
+        </div>
+    </div>

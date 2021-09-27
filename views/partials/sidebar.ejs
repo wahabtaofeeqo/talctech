@@ -1,0 +1,47 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar" style="background: #915A58;">
+    <ul class="nav">
+        <li class="nav-item nav-profile">
+            <div class="nav-link">
+                <div class="profile-name">
+                    <p class="name text-light">
+                        Welcome
+                    </p>
+                    <p class="designation text-light">
+                        Super Admin
+                    </p>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="/home">
+                <i class="fa fa-home menu-icon text-light"></i>
+                <span class="menu-title text-light">Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" data-toggle="collapse" href="#page-layouts" aria-expanded="false"
+                aria-controls="page-layouts">
+                <i class="fab fa-trello menu-icon text-light remove-hover"></i>
+                <span class="menu-title text-light">Property</span>
+                <i class="menu-arrow text-light"></i>
+            </a>
+            <div class="collapse" id="page-layouts">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link text-light" href="/add-properties">Add Property</a></li>
+                    <li class="nav-item"> <a class="nav-link text-light" href="/viewproperty">View Properties</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard_dr" onclick="event.preventDefault();
+            document.getElementById('logout-menu').submit();">
+                <div class="pull-left"><i class="fas fa-bell menu-icon text-light"></i><span class="menu-title">Logout</span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+            <form id="logout-menu" action="/logout" method="POST" style="display: none;">
+            </form>
+        </li>
+    </ul>
+</nav>

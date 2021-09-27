@@ -1,0 +1,37 @@
+<%- contentFor('body') %>
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">
+        	Videos
+        </h1>
+    </div>
+
+	<div class="card">
+		<div class="card-body">
+			<div class="table-responsive">
+	        	<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+	        		<thead>
+	        			<tr>
+		        			<th>#</th>
+		        			<th>Name</th>
+		        			<th>Description</th>
+		        			<th>Action</th>
+		        		</tr>
+	        		</thead>
+
+	        		<tbody>
+	        			<% for(let i = 0; i < videos.length; i++) {%>
+	        				<tr>
+	        					<td><%= (i + 1) %></td>
+	        					<td><%= videos[i].name %></td>
+	        					<td><%= videos[i].description %></td>
+	        					<td>
+	        						<a href="/properties/videos/<%= videos[i].id %>" class="btn btn-sm btn-info">View</a>
+	        						<button class="btn btn-sm btn-danger btn-delete" data-id="<%= videos[i].id %>" data-type="user">Delete</button>
+	        					</td>
+	        				</tr>
+	        			<% } %>
+	        		</tbody>
+	        	</table>
+	        </div>
+		</div>
+	</div>

@@ -1,0 +1,134 @@
+<% if(user_roles == '1') { %>
+<%- include("../../partials/admin_header") %>
+<%- include("../../partials/admin_sidebar") %>
+<% } else if(user_roles == '2') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/landlord_sidebar") %>
+<% } else if(user_roles == '3') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/user_sidebar") %>
+<% } else if(user_roles == '4') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/renter_sidebar") %>
+<% } else if(user_roles == '5') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/exec_sidebar") %>
+<% } %>
+
+
+<!-- partial -->
+<div class="main-panel">
+  <%- include("../../partials/alerts") %>
+  <div class="content-wrapper">
+    <div class="page-header">
+      <h3 class="page-title">
+        Dashboard
+      </h3>
+    </div>
+
+    <% if(user_roles == '3') { %>
+      
+      <div class="row grid-margin stretch-card">
+        <div class="col-lg-6 col-md-6 mt-3">
+          <a class="btn" href="/rentals" style="background-color: #C17267; width:80%;">
+            <div class="card" style="background-color: #C17267;">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <h4 class="card-title mb-0 text-light p-3">Property Rental Homepage</h4>
+                <div class="d-flex justify-content-between align-items-center">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-6 col-md-6 mt-3">
+          <a class="btn" href="/shortproperties" style="background-color: #C17267; width:80%;">
+            <div class="card" style="background-color: #C17267;">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <h4 class="card-title mb-0 text-light p-3">Short-Term Properties</h4>
+                <div class="d-flex justify-content-between align-items-center">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-lg-6 col-md-6 offset-lg-3 offset-md-3 mt-3">
+          <a class="btn" href="javascript:void(0);" style="background-color: #C17267; width:80%;" onclick="event.preventDefault();
+          document.getElementById('upgrade-menu').submit();">
+            <form id="upgrade-menu" action="/upgrade/tenant" method="POST" style="display: none;">
+              <input type="hidden" name="id" value="<%= session_id %>">
+            </form>
+            <div class="card" style="background-color: #C17267;">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <h4 class="card-title mb-0 text-light p-3">Upgrade to Executive feature Tenant</h4>
+                <div class="d-flex justify-content-between align-items-center">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    
+    <% } else if(user_roles == '5') { %>
+    
+      <div class="row grid-margin stretch-card">
+        <div class="col-lg-6 col-md-6 mt-3">
+          <a class="btn" href="/rentals" style="background-color: #C17267; width:80%;">
+            <div class="card" style="background-color: #C17267;">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <h4 class="card-title mb-0 text-light p-3">Property Rental Homepage</h4>
+                <div class="d-flex justify-content-between align-items-center">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-6 col-md-6 mt-3">
+          <a class="btn" href="/shortproperties" style="background-color: #C17267; width:80%;">
+            <div class="card" style="background-color: #C17267;">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <h4 class="card-title mb-0 text-light p-3">Short-Term Properties</h4>
+                <div class="d-flex justify-content-between align-items-center">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="row grid-margin stretch-card">
+        <div class="col-lg-6 col-md-6 mt-3">
+          <a class="btn" href="/property" style="background-color: #C17267; width:80%;">
+            <div class="card" style="background-color: #C17267;">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <h4 class="card-title mb-0 text-light p-3">Request Property viewing</h4>
+                <div class="d-flex justify-content-between align-items-center">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-6 col-md-6 mt-3">
+          <a class="btn" href="/execrequest" style="background-color: #C17267; width:80%;">
+            <div class="card" style="background-color: #C17267;">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <h4 class="card-title mb-0 text-light p-3">Viewing Status</h4>
+                <div class="d-flex justify-content-between align-items-center">
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      
+    <% } %>
+
+    
+
+  </div>
+
+
+  <!-- content-wrapper ends -->
+  <!-- partial:partials/_footer.html -->
+  <%- include("../../partials/footer") %>

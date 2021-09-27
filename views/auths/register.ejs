@@ -1,0 +1,437 @@
+<%- contentFor('links') %>
+	<link rel="stylesheet" href="assets/css/reg.css">
+
+<%- contentFor('body') %>
+
+	<!-- Navbar -->
+	<%- include('../includes/navbar') %>
+	
+	<!-- Alert Messages -->
+		<%- include("../partials/alerts") %>
+
+    <div class="site-wrapper">
+			<section class="tabs-wrapper">
+				<div class="tabs-container">
+					<div class="tabs-block">
+						<div class="tabs">
+              <!-- Landlord Registration Form-->
+							<input type="radio" name="tabs" id="tab1" checked="checked" />
+							<label for="tab1" class="label">LANDLORD</label>
+							<div class="tab">
+								<div class="form-signup-div">
+                  <div class="text-center logo-div">
+                  </div>
+                    <p class="text-form">Landlord Registration Form</p>
+                    <div class="line-rule"></div>
+                    <form method="POST" action="/landlord/register" class="signupForm">
+                      <!-- Full Name -->
+                      <div>
+                        <label>Your Full Name</label>
+                        <input type="text" name="name" class="form-control input" placeholder="Enter your fullname">
+                      </div>
+          
+                      <!-- Select Field One -->
+                      <div>
+                        <label>On a scale of 1 to 3, how important is that that your Tenant is
+                          employed?</label>
+                          <select name="employed">
+                            <option hidden>Select Option</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                          </select>
+                      </div>
+          
+                      <!-- Select Field Two -->
+                      <div>
+                        <label>Do you have a minimum income level for your Tenant?</label>
+                        <select id="income">
+                          <option hidden>Select Option</option>
+                          <option>Yes</option>
+                          <option>No</option>
+                        </select>
+                      </div>
+
+                      <div id="incomeBox" style="display: none;">
+                        <label>Minimum Income</label>
+                        <input type="number" min="100" name="income" class="form-control input" placeholder="Amout">
+                      </div>
+          
+                      <!-- Select Field Three -->
+                      <div>
+                        <label>Do you require only professionals?</label>
+                        <select name="professional">
+                          <option hidden>Select Option</option>
+                          <option>Yes</option>
+                          <option>No</option>
+                        </select>
+                      </div>
+          
+                      <!-- Select Field Four -->
+                      <div>
+                        <label>On a scale of 1 to 3, how important is that that your Tenant is a
+                          smoker?</label>
+                          <select name="smoker">
+                            <option hidden>Select Option</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                          </select>
+                      </div>
+          
+                      <!-- Select Field Five -->
+                      <div>
+                        <label>On a scale of 1 to 3, how important is it that your Tenant is a
+                          drinker?</label>
+                          <select name="drinker">
+                            <option hidden>Select Option</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                          </select>
+                      </div>
+          
+                      <!-- Select Field Six -->
+                      <div>
+                        <label>On a scale of 1 to 10 or irrelevant, how much electricity and water
+                          should your Tenant consume or is it irrelevant?</label>
+                          <select name="electricity">
+                            <option hidden>Select Option</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>Irrelevant</option>
+                          </select>
+                      </div>
+
+                      <!-- Select Field Seven -->
+                      <div>
+                        <label>Do you have other preferences that you need us to record?</label>
+                          <select id="preference">
+                            <option hidden>Select Option</option>
+                            <option>Yes</option>
+                            <option>No</option>
+                          </select>
+                      </div>
+
+                      <div id="preferenceBox" style="display: none;">
+                        <label>Preference</label>
+                        <textarea placeholder="Preference" class="form-control input" name="preference"></textarea>
+                      </div>
+          
+                      <!-- Phone Number -->
+                      <div>
+                        <label>Your Phone Number</label>
+                        <input type="text" name="phone" class="form-control input" placeholder="Enter phone number">
+                      </div>
+          
+                      <!-- Email Address -->
+                      <div>
+                        <label>Your Email</label>
+                        <input type="email" name="email" class="form-control input" placeholder="Enter email address">
+                      </div>
+
+                      <!-- Password -->
+                      <div>
+                        <label>Your Password</label>
+                        <input type="password" name="password" class="form-control input" placeholder="Enter your password">
+                      </div>
+                      
+                      <div class="mb-3">
+                        <input type="checkbox"> <span>I agree to the <a href="/terms">terms and conditions</a></span>
+                      </div>
+          
+                      <div>
+                        <input type="submit" class="btn btn-block login-btn" value="SIGN UP" name="submit">
+                      </div>
+                    </form>
+                </div>
+							</div>
+
+              <!-- Tenant Registration Form-->
+							<input type="radio" name="tabs" id="tab2" />
+							<label for="tab2" class="label">TENANT</label>
+							<div class="tab">
+								<div class="form-signup-div">
+                  <div class="text-center logo-div">
+                  </div>
+                    <p class="text-form">Tenant Registration Form</p>
+                    <div class="line-rule"></div>
+                    <form action="/tenant/register" method="POST" class="signupForm">
+                      <!-- Full Name -->
+                      <div>
+                        <label>Your Full Name</label>
+                        <input type="text" name="name" class="form-control input" placeholder="Enter your fullname">
+                      </div>
+
+                      <!-- Phone Number -->
+                      <div>
+                        <label>Your Phone Number</label>
+                        <input type="text" name="phone" class="form-control input" placeholder="Enter phone number">
+                      </div>
+          
+                      <!-- Select Field One -->
+                      <div>
+                        <label>Do you like pets?</label>
+                          <select name="pets">
+                            <option hidden>Select Option</option>
+                            <option>Yes</option>
+                            <option>No</option>
+                          </select>
+                      </div>
+          
+                      <!-- Select Field Two -->
+                      <div>
+                        <label>Are you employed or unemployed?</label>
+                        <select name="employed">
+                          <option hidden>Select Option</option>
+                          <option value="1">Employed</option>
+                          <option value="0">Unemployed</option>
+                        </select>
+                      </div>
+          
+                      <!-- What income do you earn? -->
+                      <div>
+                        <label>What income do you earn?</label>
+                        <input type="number" name="income" class="form-control input" placeholder="Enter answer">
+                      </div>
+          
+                      <!-- Select Field Three -->
+                      <div>
+                        <label>Are you a professional?</label>
+                          <select name="professional">
+                            <option hidden>Select Option</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                          </select>
+                      </div>
+          
+                      <!-- Select Field Four -->
+                      <div>
+                        <label>Are you a smoker?</label>
+                          <select name="smoker">
+                            <option hidden>Select Option</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                          </select>
+                      </div>
+          
+                      <!-- Select Field Five -->
+                      <div>
+                        <label>Are you married or single?</label>
+                          <select name="married">
+                            <option hidden>Select Option</option>
+                            <option value="1">Married</option>
+                            <option value="0">Single</option>
+                          </select>
+                      </div>
+
+                      <!-- Select Field Six -->
+                      <div>
+                        <label>Do you party a lot or rarely?</label>
+                          <select name="party">
+                            <option hidden>Select Option</option>
+                            <option value="1">A lot</option>
+                            <option value="0">Rarely</option>
+                          </select>
+                      </div>
+
+                      <!-- Select Field Seven -->
+                      <div>
+                        <label>On a scale of 1 to 10, how religious are you?</label>
+                          <select name="religious">
+                            <option hidden>Select Option</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                          </select>
+                      </div>
+
+                      <!-- Select Field Eight -->
+                      <div>
+                        <label>Do you have children?</label>
+                          <select name="children">
+                            <option hidden>Select Option</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                          </select>
+                      </div>
+
+                      <!-- Select Field Nine -->
+                      <div>
+                        <label>Are you a regular drinker?</label>
+                          <select name="drinker">
+                            <option hidden>Select Option</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                          </select>
+                      </div>
+
+                      <!-- Select Field Ten -->
+                      <div>
+                        <label>On a scale of 1 to 10, how loud do you play your music or
+                          television?</label>
+                          <select name="television">
+                            <option hidden>Select Option</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                          </select>
+                      </div>
+
+                      <!-- Select Field Eleven -->
+                      <div>
+                        <label>On a scale of 1 to 10, how much electricity do you use?</label>
+                          <select name="electricity">
+                            <option hidden>Select Option</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                          </select>
+                      </div>
+
+                      <!-- Select Field Twelve -->
+                      <div>
+                        <label>On a scale of 1 to 10, how much water do you use?</label>
+                          <select name="water">
+                            <option hidden>Select Option</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                          </select>
+                      </div>
+
+                      <!-- Select Field Thirteen -->
+                      <div>
+                        <label>On a scale of 1 to 10, how comfortable are you with your party in
+                          the house?"</label>
+                          <select name="house_party">
+                            <option hidden>Select Option</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                          </select>
+                      </div>
+          
+                      <!-- Email Address -->
+                      <div>
+                        <label>Your Email</label>
+                        <input type="email" name="email" class="form-control input" placeholder="Enter email address">
+                      </div>
+
+                      <!-- Password -->
+                      <div>
+                        <label>Your Password</label>
+                        <input type="password" name="password" class="form-control input" placeholder="Enter your password">
+                      </div>
+
+                      <!-- Re-type Password -->
+                      <div class="d-none">
+                        <label>Re-type Password</label>
+                        <input type="password" class="form-control input" placeholder="Re-type password">
+                      </div>
+                      
+                      <div class="mb-3">
+                        <input type="checkbox"> <span>I agree to the <a href="/terms">terms and conditions</a></span>
+                      </div>
+          
+                      <div>
+                        <input type="submit" class="btn btn-block login-btn" value="SIGN UP" name="submit">
+                      </div>
+                    </form>
+                </div>
+                
+                
+							</div>
+							
+							<!-- Rental Registration Form-->
+							<input type="radio" name="tabs" id="tab3" />
+							<label for="tab3" class="label">RENTALS</label>
+							<div class="tab">
+								<div class="form-signup-div">
+                  <div class="text-center logo-div">
+                  </div>
+                    <p class="text-form">Rental Registration Form</p>
+                    <div class="line-rule"></div>
+                    <form action="/renter/register" method="POST" class="signupForm">
+                      <!-- Full Name -->
+                      <div>
+                        <label>Your Full Name</label>
+                        <input type="text" name="name" class="form-control input" placeholder="Enter your fullname">
+                      </div>
+          
+                      <!-- Phone Number -->
+                      <div>
+                        <label>Your Phone Number</label>
+                        <input type="text" name="phone" class="form-control input" placeholder="Enter phone number">
+                      </div>
+          
+                      <!-- Email Address -->
+                      <div>
+                        <label>Your Email</label>
+                        <input type="email" name="email" class="form-control input" placeholder="Enter email address">
+                      </div>
+
+                      <!-- Password -->
+                      <div>
+                        <label>Your Password</label>
+                        <input type="password" name="password" class="form-control input" placeholder="Enter your password">
+                      </div>
+
+                      <div class="mb-3">
+                        <input type="checkbox"> <span>I agree to the <a href="/terms">terms and conditions</a></span>
+                      </div>
+          
+                      <div>
+                        <input type="submit" class="btn btn-block login-btn" value="SIGN UP" name="submit">
+                      </div>
+                    </form>
+                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>

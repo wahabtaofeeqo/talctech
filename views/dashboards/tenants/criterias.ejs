@@ -1,0 +1,61 @@
+<%- contentFor('body') %>
+
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Property Criteria</h1>
+
+        <% if(criteria) { %>
+            <a href="/tenant/criterias/<%= criteria.id %>" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">
+             <i class="fas fa-download fa-sm text-white-50"></i> Edit Criteria </a>
+        <% } else { %>
+        	<a href="/tenant/add-criteria" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm">
+             <i class="fas fa-download fa-sm text-white-50"></i> Create Criteria </a>
+        <% } %>
+    </div>
+
+	<div class="card">
+		<div class="card-body">
+			<p class="text-muted text-center mb-0">
+				Criteria determines the properties that could be matched with you. Adjust it accordingly
+			</p>
+		</div>
+
+		<% if(criteria) { %> 
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">
+				  	Property Type: <strong class="px-3"><%= criteria.property_type %></strong>
+				</li>
+
+				<li class="list-group-item">
+				  	Property Offer Type:
+				  	<strong class="px-3"><%= criteria.offer_type %></strong>
+				</li>
+
+				<li class="list-group-item">
+				  	Property City:
+				  	<strong class="px-3"><%= criteria.city %></strong>
+				</li>
+
+				<li class="list-group-item">
+					Neighbourhood:
+					<strong class="px-3"><%= criteria.neighbourhood %></strong>
+				</li>
+				 
+				<li class="list-group-item">
+					Price: 
+					<strong class="px-3"><%= criteria.price %></strong>
+				</li>
+
+				<li class="list-group-item">
+					Bedrooms:
+					<strong class="px-3"><%= criteria.bedrooms %></strong>
+				</li>
+
+				<li class="list-group-item">
+					Bathrooms: 
+					<strong class="px-3"><%= criteria.bathrooms %></strong>
+				</li>
+			</ul>
+		<% } else { %>
+			<h4>You have not set your Criteria</h4>
+		<% } %>
+	</div>

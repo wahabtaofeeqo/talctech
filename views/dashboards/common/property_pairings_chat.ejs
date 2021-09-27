@@ -1,0 +1,98 @@
+<% if(user_roles == '1') { %>
+<%- include("../../partials/admin_header") %>
+<%- include("../../partials/admin_sidebar") %>
+<% } else if(user_roles == '2') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/landlord_sidebar") %>
+<% } else if(user_roles == '3') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/user_sidebar") %>
+<% } else if(user_roles == '4') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/renter_sidebar") %>
+<% } else if(user_roles == '5') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/exec_sidebar") %>
+<% } %>
+
+<!-- partial -->
+<div class="main-panel">
+    <%- include("../../partials/alerts") %>
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">
+                Dashboard
+            </h3>
+            <%- include("../../partials/breadcrumb") %>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table id="order-listing" class="table">
+                                <thead>
+                                    <tr>
+                                        <% if(user_roles == '2') { %>
+                                        <th>#</th>
+                                        <th>Images</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Unread Chats</th>
+                                        <th>Actions</th>
+                                        <% } else { %>
+                                        <th>#</th>
+                                        <th>Images</th>
+                                        <th>Owner's Name</th>
+                                        <th>Owner's Email</th>
+                                        <th>Unread Chats</th>
+                                        <th>Actions</th>
+                                        <% } %>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%  for (let i = 0; i < pairings.length; i++ ) { %>
+                                    <tr>
+                                        <% if(user_roles == '2') { %>
+                                        <td><%= i+ 1 %></td>
+                                        <td>
+                                            <img src="/uploads/properties/<%= pairings[i].property.image_front %>"
+                                                alt="image">
+                                        </td>
+                                        <td><%= pairings[i].user.name %></td>
+                                        <td><%= pairings[i].user.email %></td>
+                                        <td><%= pairings[i].property.chat.length %></td>
+                                        <td>
+                                            <a href="/userprofile/<%= pairings[i].tenant_id %>" class="btn btn-outline-primary">Profile</a>
+                                            <a href="/chat/<%= pairings[i].property_id %>/<%= pairings[i].tenant_id %>"
+                                                class="btn btn-outline-success">Chat</a>
+                                        </td>
+                                        <% } else { %>
+                                        <td><%= i+ 1 %></td>
+                                        <td>
+                                            <img src="/uploads/properties/<%= pairings[i].property.image_front %>"
+                                                alt="image">
+                                        </td>
+                                        <td><%= pairings[i].property.user.name %></td>
+                                        <td><%= pairings[i].property.user.email %></td>
+                                        <td><%= pairings[i].property.chat.length %></td>
+                                        <td>
+                                            <a href="/userprofile/<%= pairings[i].property.user_id %>" class="btn btn-outline-primary">Profile</a>
+                                            <a href="/chat/<%= pairings[i].property_id %>"
+                                                class="btn btn-outline-success">Chat</a>
+                                        </td>
+                                        <% } %>
+
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:partials/_footer.html -->
+    <%- include("../../partials/footer") %>

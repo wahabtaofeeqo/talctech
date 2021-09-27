@@ -1,0 +1,26 @@
+<%- contentFor('body') %>
+
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Request Response</h1>
+    </div>
+
+	<div class="card">
+		<div class="card-header"></div>
+		<div class="card-body">
+			<p>Name: <%= response.name %></p>
+
+			<p>Description: <%= response.description %></p>
+
+			<div class="mt-4">
+				<video width="320" height="240" controls autoplay="false">
+				  	<source src="/uploads/videos/<%= response.filename %>" type="video/mp4">
+				  	Your browser does not support the video tag.
+				</video>
+			</div>
+
+			<div class="py-3">
+				<small class="text-danger">
+					This Video may be deleted in the next few weeks from the server. You can download it for future reference!
+				</small>
+			</div>
+	</div>

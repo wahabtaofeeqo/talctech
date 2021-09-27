@@ -1,0 +1,121 @@
+<%- contentFor('body') %>
+
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Property Criteria</h1>
+    </div>
+
+    <div class="card">
+        <div class="card-header"></div>
+        <form method="POST" action="<%= (criteria) ? '/api/update-criteria' : '/api/add-criteria' %>" id="criteriaForm">
+
+            <input type="hidden" name="id" value="<%= (criteria) ? criteria.id : '' %>">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="property">Property Type</label>
+                        <select name="property" class="form-control">
+                            <option value="<%= (criteria) ? criteria.property_type : '' %>" selected>
+                                <%= (criteria) ? criteria.property_type : 'Select Type' %>        
+                            </option>
+                            <option>House</option>
+                            <option>Apartment</option>
+                            <option>Office</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label for="property">Offer Type</label>
+                        <select name="offer" class="form-control">
+                            <option value="<%= (criteria) ? criteria.offer_type : '' %>" selected>
+                                <%= (criteria) ? criteria.offer_type : 'Select Type' %>        
+                            </option>
+                            <option value="sell">Sell</option>
+                            <option value="rent">Rent</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="property">Price</label>
+                        <select name="price" class="form-control">
+                            <option value="<%= (criteria) ? criteria.price : '' %>" selected>
+                                <%= (criteria) ? criteria.price : 'Select Price' %>        
+                            </option>
+                            <option>below 200000</option>
+                            <option>below 300000</option>
+                            <option>below 400000</option>
+                            <option>below 500000</option>
+                            <option>above 500000</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label for="property">City</label>
+                        <select name="city" class="form-control">
+                            <option value="<%= (criteria) ? criteria.city : '' %>" selected>
+                                <%= (criteria) ? criteria.city : 'Select City' %>        
+                            </option>
+                            <option>Lagos</option>
+                            <option>Abuja</option>
+                            <option>Port Harcourt</option>
+                            <option>Enugu</option>
+                            <option>Kaduna</option>
+                            <option>Sokoto</option>
+                            <option>Benin</option>
+                            <option>Warri</option>
+                            <option>Onitsha</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="neighbourhood">Neighbourhood</label>
+                         <input type="text" class="form-control" name="neighbourhood" value="<%= (criteria) ? criteria.neighbourhood : '' %>">
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label for="bedrooms">Bedrooms</label>
+                        <select name="bedrooms" class="form-control">
+                            <option value="<%= (criteria) ? criteria.city : '' %>" selected>
+                                <%= (criteria) ? criteria.bedrooms : 'Select Beds' %>        
+                            </option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5+</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                   
+                    <div class="col-md-6 form-group">
+                        <label for="bathrooms">Bathrooms</label>
+                        <select name="bathrooms" class="form-control">
+                            <option value="<%= (criteria) ? criteria.city : '' %>" selected>
+                                <%= (criteria) ? criteria.bathrooms : 'Select Baths' %>        
+                            </option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5+</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label for="desc">Description</label>
+                        <textarea rows="3" placeholder="Description" class="form-control"></textarea>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary px-5">
+                    <%= (criteria) ? 'Update Criteria' : 'Save Criteria' %>
+                </button>
+            </div>
+        </form>
+    </div>

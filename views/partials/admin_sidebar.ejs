@@ -1,0 +1,96 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar" style="background: #915A58;">
+    <ul class="nav">
+        <li class="nav-item nav-profile">
+            <div class="nav-link">
+                <div class="profile-name">
+                    <p class="name text-light">
+                        Welcome
+                    </p>
+                    <p class="designation text-light">
+                        Admin
+                    </p>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="/home">
+                <i class="fa fa-home menu-icon text-light"></i>
+                <span class="menu-title text-light">Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" data-toggle="collapse" href="#page-layouts" aria-expanded="false"
+                aria-controls="page-layouts">
+                <i class="fas fa-users menu-icon text-light remove-hover"></i>
+                <span class="menu-title text-light">Users</span>
+                <i class="menu-arrow text-light"></i>
+            </a>
+            <div class="collapse" id="page-layouts">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link text-light" href="/activeusers">Active</a></li>
+                    <li class="nav-item"> <a class="nav-link text-light" href="/deletedusers">Deleted</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" data-toggle="collapse" href="#property-layouts" aria-expanded="false"
+                aria-controls="property-layouts">
+                <i class="fas fa-building menu-icon text-light remove-hover"></i>
+                <span class="menu-title text-light">Property</span>
+                <i class="menu-arrow text-light"></i>
+            </a>
+            <div class="collapse" id="property-layouts">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link text-light" href="/activeproperties">Active Property</a></li>
+                    <li class="nav-item"> <a class="nav-link text-light" href="/deletedproperties">Deleted Properties</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="/shortproperties">
+                <i class="fas fa-hotel menu-icon text-light"></i>
+                <span class="menu-title text-light">Short Term Properties</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="/admin/pairing">
+                <i class="fas fa-hotel menu-icon text-light"></i>
+                <span class="menu-title text-light">Pairing</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" data-toggle="collapse" href="#request-layouts" aria-expanded="false"
+                aria-controls="request-layouts">
+                <i class="fas fa-shopping-cart menu-icon text-light remove-hover"></i>
+                <span class="menu-title text-light">Executive Requests</span>
+                <i class="menu-arrow text-light"></i>
+            </a>
+            <div class="collapse" id="request-layouts">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link text-light" href="/newrequests">New</a></li>
+                    <li class="nav-item"> <a class="nav-link text-light" href="/answeredrequests">Answered/Sent</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="/password">
+                <i class="fas fa-cog menu-icon text-light"></i>
+                <span class="menu-title text-light">Change Password</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="javascript:void(0);" data-toggle="collapse"
+                data-target="#dashboard_dr" onclick="event.preventDefault();
+            document.getElementById('logout-menu').submit();">
+                <div class="pull-left"><i class="fas fa-power-off menu-icon text-light"></i><span
+                        class="menu-title">Logout</span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+            <form id="logout-menu" action="/logout" method="POST" style="display: none;">
+            </form>
+        </li>
+    </ul>
+</nav>

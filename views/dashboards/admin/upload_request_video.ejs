@@ -1,0 +1,59 @@
+<%- include("../../partials/admin_header") %>
+<%- include("../../partials/admin_sidebar") %>
+<!-- partial -->
+<div class="main-panel">
+    <%- include("../../partials/alerts") %>
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">
+                New Executive Tenants Requests
+            </h3>
+            <%- include("../../partials/breadcrumb") %>
+        </div>
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title"></h4>
+                        <form class="forms-sample" method="POST" action="/sendassets" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="exampleInputUsername1">Executive Tenant Email</label>
+                                <input type="text" class="form-control" value="<%= request.user.email %>" required
+                                    disabled>
+                                <input type="hidden" value="<%= request.user.email %>" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputUsername1">Message</label>
+                                <input type="text" class="form-control" name="message" required>
+                                <input type="hidden" name="id" value="<%= request.id %>">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Video / Files</label>
+                                <input type="file" class="form-control" id="exampleInputEmail1" name="asset" required>
+                                <!-- <div class="input-group col-sm-12">
+                                    <input type="file" name="asset" class="file-upload-default">
+                                    <input type="text" class="form-control file-upload-info" disabled
+                                        placeholder="Upload File">
+                                    <span class="input-group-append">
+                                        <button class="file-upload-browse btn btn-dark" type="button">Upload</button>
+                                    </span>
+                                </div> -->
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12  d-flex align-items-center justify-content-center">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <button type="submit" class="btn btn-outline-dark btn-block"
+                                            style="color: #fff; padding: 10px; background-color: #C17267;">Send
+                                            Video</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:../../partials/_footer.html -->
+    <%- include("../../partials/footer") %>

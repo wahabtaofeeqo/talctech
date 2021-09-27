@@ -1,0 +1,41 @@
+.pagination {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.single-home-blog {
+  margin-top: 50px;
+}
+
+.form {
+  margin-top: -145px;
+}
+
+.form input {
+  padding: 25px;
+  margin-bottom: 20px;
+}
+
+.form .btn {
+  width: 100%;
+  margin-bottom: 10px !important;
+  margin-left: 0;
+}
+
+.form p {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.form a {
+  color: brown;
+}
+
+@media(max-width: 769px) {
+  .form {
+    margin-top: -80px;
+  }
+}

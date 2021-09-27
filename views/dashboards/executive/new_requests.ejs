@@ -1,0 +1,73 @@
+<% if(user_roles == '1') { %>
+<%- include("../../partials/admin_header") %>
+<%- include("../../partials/admin_sidebar") %>
+<% } else if(user_roles == '2') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/landlord_sidebar") %>
+<% } else if(user_roles == '3') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/user_sidebar") %>
+<% } else if(user_roles == '4') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/renter_sidebar") %>
+<% } else if(user_roles == '5') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/exec_sidebar") %>
+<% } %>
+
+<!-- partial -->
+<div class="main-panel">
+    <%- include("../../partials/alerts") %>
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">
+                Executive Requests
+            </h3>
+            <%- include("../../partials/breadcrumb") %>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table id="order-listing" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Status</th>
+                                        <th>Property By</th>
+                                        <th>Type</th>
+                                        <th>Offer</th>
+                                        <th>Price</th>
+                                        <th>City</th>
+                                        <th>Bedroom</th>
+                                        <th>Bathrooms</th>
+                                        <th>Request Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%  for (let i = 0; i < requests.length; i++ ) { %>
+                                    <tr>
+                                        <td><%= i+ 1 %></td>
+                                        <td><%= requests[i].status == 0  ? 'New' : 'Processed' %></td>
+                                        <td><%= requests[i].property.user.name %></td>
+                                        <td><%= requests[i].property.property_type %></td>
+                                        <td><%= requests[i].property.offer_type %></td>
+                                        <td>(₦) <%= requests[i].property.price %></td>
+                                        <td><%= requests[i].property.city %></td>
+                                        <td><%= requests[i].property.bedrooms %></td>
+                                        <td><%= requests[i].property.bathrooms %></td>
+                                        <td><%= requests[i].createdAt %></td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:partials/_footer.html -->
+    <%- include("../../partials/footer") %>

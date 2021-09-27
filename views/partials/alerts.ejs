@@ -1,0 +1,52 @@
+<% var message = getMessages()  %>
+<% if(message.warning) { %>
+<div class="container">
+    <div class="row">
+        <div class="col-auto"  style="position: fixed; bottom: 10px; right: 10px; z-index: 10000;">
+            <div class="alert fadeInDown animated alert-warning alert-dismissible fade show" role="alert">
+                <strong>Warning!</strong> <%= message.warning %>.
+                <button class="close" data-dismiss="alert">
+                <span>&times;</span>
+                <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close"> -->
+                <!-- <span aria-hidden="true"><i class="icon mdi mdi-close" aria-hidden="true"></i></span> -->
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<% } %>
+
+<% if(message.error) { %>
+    <div class="container">
+        <div class="row">
+            <div class="col-auto"  style="position: fixed; bottom: 10px; right: 10px; z-index: 10000;">
+                <div class="alert fadeInDown animated alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> <%= message.error %>.
+                    <button class="close" data-dismiss="alert">
+                    <span>&times;</span>
+                    <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close"> -->
+                    <!-- <span aria-hidden="true"><i class="icon mdi mdi-close" aria-hidden="true"></i></span> -->
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+<% } %>
+    
+
+<% if(message.success) { %>
+    <div class="container">
+        <div class="row">
+            <div class="col-auto"  style="position: fixed; bottom: 10px; right: 10px; z-index: 10000;">
+                <div class="alert fadeInDown animated alert-success alert-dismissible fade show" role="alert">
+                    <strong>Success!</strong> <%= message.success %>.
+                    <button class="close" data-dismiss="alert">
+                    <span>&times;</span>
+                    <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close"> -->
+                    <!-- <span aria-hidden="true"><i class="icon mdi mdi-close" aria-hidden="true"></i></span> -->
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+<% } %>

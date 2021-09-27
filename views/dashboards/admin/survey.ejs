@@ -1,0 +1,45 @@
+<%- contentFor('body') %>
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Survey</h1>
+    </div>
+
+	<div class="card">
+		<div class="card-header"></div>
+		<div class="card-body">
+			<div class="mb-3">
+				<h6 class="text-muted h6">
+					 How would you rate the accommodation, from a scale of 1 to 10
+				</h6>
+				<p>
+					<%= survey.answer1 %>
+				</p>
+			</div>
+
+			<div class="mb-3">
+				<h6 class="text-muted h6">
+					Did the Renter give you the keys to the accommodation in a timely manner?
+				</h6>
+				<p>
+					<%= survey.answer2 %>
+				</p>
+			</div>
+
+			<div class="mb-3">
+				<h6 class="text-muted h6">
+					Was the bedroom tidy, rodent free and insect free? If there was any rat, insect or other unpleasant thing in the accommodation, please specify?
+				</h6>
+				<p>
+					<%= survey.answer3 %>
+				</p>
+			</div>
+
+			<div class="mb-3">
+				<h6 class="text-muted h6">
+					If you have any other concern about the accommodation, kindly indicate below?
+				</h6>
+				<p>
+					<%= survey.answer4 %>
+				</p>
+			</div>
+		</div>
+	</div>

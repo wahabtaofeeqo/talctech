@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title><%= taltech.title %></title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="/vendors/iconfonts/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="/vendors/css/vendor.bundle.addons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <!-- endinject -->
+    <style type="text/css">
+        .remove-hover {
+            position: relative;
+            display: inline-block;
+            /*font-weight: 800;*/
+            color: white !important;
+            overflow: hidden !important;
+            background: none !important;
+            text-decoration: none !important;
+        }
+
+        .remove-hover:hover {
+            background-position: 0 100%;
+            /* color: black; */
+            color: #915A58;
+        }
+    </style>
+</head>
+
+<body class="sidebar-light">
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar navbar-dark"
+            style="background: #915A58;">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"
+                style="background: #915A58;">
+                <a class="navbar-brand brand-logo" href=/home> <img src="/images/logo.jpg" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="/home"><img src="/images/logo.jpg" alt="logo" /></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-stretch" style="background: #915A58;">
+                <button class="navbar-toggler navbar-toggler align-self-center " type="button" data-toggle="minimize">
+                    <span class="fas fa-bars"></span>
+                </button>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#"
+                            data-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-envelope mx-0"></i>
+                            <span class="count"><%= unread_messages.length %></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+                            aria-labelledby="messageDropdown">
+                            <div class="dropdown-item">
+                                <p class="mb-0 font-weight-normal float-left">You have <%= unread_messages.length %>
+                                    unread mails
+                                </p>
+                                <%  if(unread_messages.length > 0 ) { %>
+                                    <a href="/propertychats">
+                                        <span class="badge badge-info badge-pill float-right">View all</span>
+                                    </a>
+                                    <% } %>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                        </div>
+                    </li>
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                            <i class="fas fa-user"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
+                            aria-labelledby="profileDropdown">
+                            <a class="dropdown-item" href="/password">
+                                <i class="fas fa-cog text-primary"></i>
+                                Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="collapse" onclick="event.preventDefault();
+                                    document.getElementById('logout-menu').submit();">
+                                <i class="fas fa-power-off text-primary"></i>
+                                Logout
+                            </a>
+                            <form id="logout-menu" action="/logout" method="POST" style="display: none;">
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                    data-toggle="offcanvas">
+                    <span class="fas fa-bars"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_settings-panel.html -->
+            <!-- partial -->
+            <!-- partial:partials/_sidebar.html -->

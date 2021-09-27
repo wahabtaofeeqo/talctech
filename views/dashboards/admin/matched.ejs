@@ -1,0 +1,39 @@
+<%- contentFor('body') %>
+
+	<div>
+	    <h6 class="mb-4">
+	        <b>Tenant:</b> <%= tenant.user.name %>
+	    </hb>
+	</div>
+
+	<div class="card">
+		<div class="card-body">
+			<div class="table-responsive">
+	        	<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+	        		<thead>
+	        			<tr>
+		        			<th>#</th>
+		        			<th>Name</th>
+		        			<th>Email</th>
+		        			<th>Phone</th>
+		        			<th>Action</th>
+		        		</tr>
+	        		</thead>
+
+	        		<tbody>
+	        			<% for(let i = 0; i < landlords.length; i++) {%>
+	        				<tr>
+	        					<td><%= (i + 1) %></td>
+	        					<td><%= landlords[i].user.name %></td>
+	        					<td><%= landlords[i].user.email %></td>
+	        					<td><%= landlords[i].user.phone %></td>
+	        					<td>
+	        						<a href="javascript:void" class="btn-pair btn btn-sm btn-warning" data-landlord="<%= landlords[i].id %>" data-tenant="<%= tenant.id %>">Pair</a>
+	        					</td>
+	        				</tr>
+	        			<% } %>
+	        		</tbody>
+	        	</table>
+	        </div>
+		</div>
+	</div>

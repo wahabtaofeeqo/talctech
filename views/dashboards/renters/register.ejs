@@ -1,0 +1,87 @@
+<%- contentFor('links') %>
+	<link rel="stylesheet" type="text/css" href="/css/renter-auth.css">
+
+<%- contentFor('body') %>
+	<div class="form-signup-div">
+        <div class="text-center logo-div">
+          <a href="/">
+            <img src="/assets/img/logo.jpg" width="100px" alt="logo">
+          </a>
+        </div>
+          <p class="text-form mb-2">Create Renter Account</p>
+          <div class="line-rule"></div>
+
+          <form action="/api/create-renter" method="POST" id="ajaxForm" class="ajaxForm">
+            <div>
+              <label>Your Full Name</label>
+              <input type="text" name="name" class="form-control input" placeholder="Enter your fullname">
+            </div>
+
+            <div>
+              <label>On a scale of 1 to 3. How important is that that your tenant is employed?</label>
+              <select name="drinker" required>
+                <option value="">Select Option</option>
+                <option value="0">Not Important</option>
+                <option value="1">Very Important</option>
+              </select>
+            </div>
+
+            <div>
+              <label>On a scale of 1 to 3. How important is that that your tenant is a smoker?</label>
+              <select name="smoker" required>
+                <option value="">Select Option</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+
+            <div>
+              <label>On a scale of 1 to 3. How important is that that your tenant is a drinker?</label>
+              <select name="drinker" required>
+                <option value="">Select Option</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+
+            <div>
+              <label>How much electricity and water should your tenant consume or is it irrelevant?</label>
+              <input type="text" class="form-control input" name="electricity" placeholder="Your answer">
+            </div>
+
+            <div>
+              <label>Only Professionals</label>
+              <select name="professional" required>
+                <option value="">Select Option</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Your Phone Number</label>
+              <input type="text" class="form-control input" name="phone" placeholder="Enter phone number">
+            </div>
+
+            <div>
+              <label>Your Email</label>
+              <input type="email" class="form-control input" name="email" placeholder="Enter email address">
+            </div>
+
+            <div>
+              <label>Your Password</label>
+              <input type="password" class="form-control input" name="password" placeholder="Enter your password">
+            </div>
+
+            <div class="checkbox">
+              <input type="checkbox" required> <label>Agree terms and conditions.</label>
+            </div>
+
+            <div>
+              <button class="btn btn-block login-btn">SIGN UP</button>
+              <input type="submit" class="btn btn-block login-btn d-none" value="SIGN UP" name="submit">
+            </div>
+          </form>
+      </div>

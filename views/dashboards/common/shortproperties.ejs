@@ -1,0 +1,103 @@
+<% if(user_roles == '1') { %>
+<%- include("../../partials/admin_header") %>
+<%- include("../../partials/admin_sidebar") %>
+<% } else if(user_roles == '2') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/landlord_sidebar") %>
+<% } else if(user_roles == '3') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/user_sidebar") %>
+<% } else if(user_roles == '4') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/renter_sidebar") %>
+<% } else if(user_roles == '5') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/exec_sidebar") %>
+<% } %>
+
+
+<!-- partial -->
+<div class="main-panel">
+    <%- include("../../partials/alerts") %>
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">
+                Short Term Rentals
+            </h3>
+            <%- include("../../partials/breadcrumb") %>
+        </div>
+        <% if(properties.length < 1) { %>
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center m-auto">There are currently no properties</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+        <!-- blank page end -->
+        <div class="card-columns">
+            <%  for (let i = 0; i < properties.length; i++ ) { %>
+            <div class="card">
+                <div class="owl-carousel owl-theme full-width">
+                    <div class="item">
+                        <img src="/uploads/shortproperties/<%= properties[i].image_front %>" alt="image" />
+                    </div>
+                    <div class="item">
+                        <img src="/uploads/shortproperties/<%= properties[i].image_side %>" alt="image" />
+                    </div>
+                    <div class="item">
+                        <img src="/uploads/shortproperties/<%= properties[i].image_rear %>" alt="image" />
+                    </div>
+                </div>
+                <div class="card-body">
+                    <span><i class="fas fa-map-marker-alt mr-2"
+                            style="color: #C17267;"></i><%= properties[i].city %></span> |
+                    <span><%= properties[i].neighbourhood %></span>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <i class="fas fa-money-bill-alt mr-2"
+                                style="color: #C17267;"></i>(₦)<%= properties[i].price %>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <i class="fas fa-list-alt mr-2" style="color: #C17267;"></i> Type:
+                            <%= properties[i].property_type %>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <i class="fas fa-bed  mr-2" style="color: #C17267;"></i><%= properties[i].bedrooms %>
+                        </div>
+                        <div class="col-6">
+                            <i class="fas fa-bath  mr-2" style="color: #C17267;"></i><%= properties[i].bathrooms %>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <i class="fas fa-user mr-2" style="color: #C17267;"></i>
+                            <%= properties[i].user.name %>
+                        </div>
+                    </div>
+                    <hr>
+                    <a href="javascript:void(0);" class="btn btn-primary" onclick="event.preventDefault(); 
+                    document.getElementById('delete-menu').submit();"
+                        style="color: #fff; width: 100%; padding: 10px; background-color: #C17267;">MESSAGE OWNER</a>
+                    <form id="delete-menu" action="#" method="POST" style="display: none;">
+                        <input type="hidden" name="id" value="<%= properties[i].id %>">
+                    </form>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:../../partials/_footer.html -->
+    <%- include("../../partials/footer") %>

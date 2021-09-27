@@ -1,0 +1,65 @@
+<% if(user_roles == '1') { %>
+    <%- include("../../partials/admin_header") %>
+    <%- include("../../partials/admin_sidebar") %>
+    <% } else if(user_roles == '2') { %>
+    <%- include("../../partials/header") %>
+    <%- include("../../partials/landlord_sidebar") %>
+    <% } else if(user_roles == '3') { %>
+    <%- include("../../partials/header") %>
+    <%- include("../../partials/user_sidebar") %>
+    <% } else if(user_roles == '4') { %>
+    <%- include("../../partials/header") %>
+    <%- include("../../partials/renter_sidebar") %>
+    <% } else if(user_roles == '5') { %>
+    <%- include("../../partials/header") %>
+    <%- include("../../partials/exec_sidebar") %>
+    <% } %>
+    
+    <!-- partial -->
+    <div class="main-panel">
+        <%- include("../../partials/alerts") %>
+        <div class="content-wrapper">
+            <div class="page-header">
+                <h3 class="page-title">
+                    Dashboard
+                </h3>
+                <%- include("../../partials/breadcrumb") %>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table id="order-listing" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%  for (let i = 0; i < tenants.length; i++ ) { %>
+                                        <tr>
+                                            <td><%= i+ 1 %></td>
+                                            <td><%= tenants[i].user.name %></td>
+                                            <td><%= tenants[i].user.email %></td>
+                                            <td><%= tenants[i].user.phone %></td>
+                                            <td>
+                                                <a href="/userprofile/<%= tenants[i].tenant_id %>" class="btn btn-outline-success btn-pills ">View</a>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <%- include("../../partials/footer") %>

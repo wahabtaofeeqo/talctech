@@ -1,0 +1,31 @@
+<%- contentFor('body') %>
+
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">
+        	Add Partner
+        </h1>
+    </div>
+
+    <div class="card">
+    	<div class="card-header"></div>
+    	<div class="card-body">
+    		<form action="/admin/add-partner" method="POST" enctype="multipart/form-data">
+    			<div class="form-group">
+    				<label for="name">Name</label>
+    				<input type="text" name="name" class="form-control" placeholder="Partner name" required>
+    			</div>
+
+    			<div class="form-group">
+    				<label for="desc">Description</label>
+    				<textarea name="description" class="form-control" placeholder="Description" rows="3"></textarea>
+    			</div>
+
+    			<div class="form-group mb-4">
+    				<label for="logo">Logo</label> <br>
+    				<input type="file" name="logo" required>
+    			</div>
+
+    			<button class="btn btn-danger px-5">Save</button>
+    		</form>
+    	</div>
+    </div>

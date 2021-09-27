@@ -1,0 +1,43 @@
+<%- contentFor('body') %>
+
+	<div>
+	    <h6 class="mb-4">
+	        Requests
+	    </hb>
+	</div>
+
+	<div class="card">
+		<div class="card-body">
+			<div class="table-responsive">
+	        	<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+	        		<thead>
+	        			<tr>
+		        			<th>#</th>
+		        			<th>Name</th>
+		        			<th>Email</th>
+		        			<th>Phone</th>
+		        			<th>Action</th>
+		        		</tr>
+	        		</thead>
+
+	        		<tbody>
+	        			<% for(let i = 0; i < requests.length; i++) {%>
+	        				<tr>
+	        					<td><%= (i + 1) %></td>
+	        					<td><%= requests[i].user.name %></td>
+	        					<td><%= requests[i].user.email %></td>
+	        					<td><%= requests[i].user.phone %></td>
+	        					<td>
+	        						<% if(status == 1) { %>
+	        							<button class="btn btn-sm btn-danger btn-delete" data-id="<%= requests[i].id %>" data-type="request">Delete</button>
+	        						<% } else { %>
+	        							<a href="/admin/requests/<%= requests[i].id %>/reply" class="btn btn-sm btn-info" data-landlord="<%= requests[i].id %>">Reply</a>
+	        						<% } %>
+	        					</td>
+	        				</tr>
+	        			<% } %>
+	        		</tbody>
+	        	</table>
+	        </div>
+		</div>
+	</div>

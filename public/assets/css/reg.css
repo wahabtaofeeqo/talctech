@@ -1,0 +1,264 @@
+/* Universal Style */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  font-family: 'Trebuchet MS', sans-serif !important;
+  padding-bottom: 40px;
+  background-color: #833B2D !important;
+  background-image: url('/img/mobile.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.main_menu{
+    background-color: #fff !important;
+}
+/* Tabs */
+.site-wrapper{
+  margin-top: -5px;
+ }
+.tabs-container {
+  padding: 2rem 17rem !important;
+}
+.tabs-block {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.tabs {
+	display: flex;
+	flex-wrap: wrap;
+}
+.tabs .label {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem 1rem;
+	cursor: pointer;
+	background-color: #000000;
+	color: #fff;
+	font-weight: 700;
+	transition: background-color ease 0.3s;
+  margin-right: 5px;
+  transition: 0.4s;
+  border-radius: 5px;
+}
+.tabs .tab {
+	flex-grow: 1;
+	width: 100%;
+	display: none;
+}
+.tabs [type=radio] {
+	display: none;
+}
+.tabs [type=radio]:checked + .label {
+	background-color: #fff;
+	color: #441f18;
+	border-top: 4px solid #cc9c5e;
+	box-shadow: 0 10px 10px rgba(0, 0, 0, 0.4);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.tabs [type=radio]:checked + .label + .tab {
+	display: block;
+}
+@media (max-width: 998px){
+  .tabs-container {
+    padding: 2rem 5rem !important;
+  }
+}
+@media (max-width: 620px){
+  .tabs-container {
+    padding: 2rem 2rem !important;
+  }
+}
+@media (max-width: 594px){
+  .tabs-container {
+    padding: 2rem 0.5rem !important;
+  }
+}
+@media (min-width: 200px) {
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+  }
+	.tabs .label {
+		order: 1;
+		width: auto;
+	}
+	.tabs .tab {
+		order: 9;
+	}
+	.tabs [type=radio]:checked + .label {
+		border-bottom: none;
+	}
+}
+
+/** Form Area */
+.logo-div{
+  margin-bottom: 20px;
+}
+.form-signup-div{
+  background-color: rgba(224, 224, 224, 0.342);
+  width: 100%;
+  margin: auto;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 1px 2px 10px 5px  #0c0c0c54;
+  transition: 0.6s;
+}
+.form-signup-div:hover{
+  background-color: rgba(255, 255, 255, 0.555);
+}
+.text-form{
+  color: #000;
+  font-size: 25px;
+  text-transform: capitalize;
+  text-align: center;
+  font-weight: 700;
+}
+.line-rule{
+  width: 80px;
+  height: 3px;
+  background-color: #1b1b1b;
+  margin-top: 1px !important;
+  margin-bottom: 30px !important;
+  margin: auto;
+}
+label{
+  color: #000;
+  font-size: 17px;
+  font-weight: 500;
+}
+.input{
+  padding-top: 25px !important;
+  padding-bottom: 25px !important;
+  padding-left: 15px !important;
+  border-radius: 15px !important;
+  width: 100%;
+  margin-bottom: 25px;
+  border: none !important;
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.329);
+}
+select{
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+  padding-left: 15px !important;
+  border-radius: 15px !important;
+  width: 100%;
+  margin-bottom: 25px !important;
+  border: none !important;
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.329);
+}
+option{
+}
+.input::placeholder {
+  color: #000000 !important;
+  font-size: 14px;
+}
+.login-btn{
+  border: 1px solid #000 !important;
+  color: #000 !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  transition: 0.5s;
+}
+.login-btn:hover{
+  border: 2px solid #833B2D !important;
+  background-color: #833B2D !important;
+  color: #fff !important;
+  font-weight: 600;
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.329);
+}
+@media (max-width: 439px){
+  .form-signup-div{
+    padding: 30px 15px;
+  }
+}
+
+
+
+/* Sign in Section */
+.dont-have-account p{
+  font-size: 17px;
+  color: #000 !important;
+}
+.dont-have-account a{
+  color: #833B2D;
+}
+.dont-have-account a:hover{
+  color: #000 !important;
+  font-weight: bold;
+  text-decoration: underline;
+}
+.signed-in span{
+  font-size: 17px;
+  color: #000 !important;
+}
+.forgot-password p{
+    font-size: 17px;
+    color: #000 !important;
+}
+.forgot-password a{
+  color: #000;
+}
+.forgot-password a:hover{
+  color: #000 !important;
+  font-weight: bold;
+  text-decoration: underline;
+}
+.form-signup-div-login{
+  background-color: rgba(255, 255, 255, 0.555);
+  width: 50%;
+  margin: auto;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 1px 2px 10px 5px  #0c0c0c54;
+  margin-top: 50px !important;
+  margin-bottom: 80px !important;
+}
+@media (max-width: 856px){
+  .form-signup-div-login{
+    width: 100%;
+  }
+}
+@media (max-width: 394px){
+  .form-signup-div-login{
+    padding: 30px 20px;
+  }
+}
+
+/* Forgot Password Section */
+.forgot-text{
+  font-family: 'Trebuchet MS', sans-serif !important;
+    font-size: 16px !important;
+    text-align: center !important;
+    color: #000 !important;
+    padding-bottom: 10px !important;
+}
+.input-forgot{
+  padding-top: 25px !important;
+  padding-bottom: 25px !important;
+  padding-left: 15px !important;
+  border-radius: 15px !important;
+  width: 100%;
+  margin-bottom: 25px;
+  border: 1px solid rgb(73, 73, 73);
+}
+.login-btn-forgot{
+  border: 2px solid #833B2D !important;
+  background-color: #833B2D !important;
+  color: #fff !important;
+  font-weight: 600;
+}
+.login-btn-forgot:hover{
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.329);
+}
+.modal-title{
+    font-family: 'Trebuchet MS', sans-serif !important;
+    font-weight: bold !important;
+    font-size: 21px !important;
+}

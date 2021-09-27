@@ -1,0 +1,91 @@
+<%- include("../../partials/admin_header") %>
+<%- include("../../partials/admin_sidebar") %>
+
+<!-- partial -->
+<div class="main-panel">
+    <%- include("../../partials/alerts") %>
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">
+                New Executive Tenants Requests
+            </h3>
+            <%- include("../../partials/breadcrumb") %>
+        </div>
+        <% if(requests.length < 1) { %>
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center m-auto">There are currently no answered requests</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+        <!-- blank page end -->
+        <div class="card-columns">
+            <%  for (let i = 0; i < requests.length; i++ ) { %>
+            <div class="card">
+                <div class="owl-carousel owl-theme full-width">
+                    <div class="item">
+                        <img src="/uploads/properties/<%= requests[i].property.image_front %>" alt="image" />
+                    </div>
+                    <div class="item">
+                        <img src="/uploads/properties/<%= requests[i].property.image_side %>" alt="image" />
+                    </div>
+                    <div class="item">
+                        <img src="/uploads/properties/<%= requests[i].property.image_rear %>" alt="image" />
+                    </div>
+                </div>
+                <div class="card-body">
+                    <span><i class="fas fa-map-marker-alt mr-2"
+                            style="color: #C17267;"></i><%= requests[i].property.city %></span> |
+                    <span><%= requests[i].property.neighbourhood %></span>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <i class="fas fa-money-bill-alt mr-2"
+                                style="color: #C17267;"></i>(₦)<%= requests[i].property.price %>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <i class="fas fa-list-alt mr-2" style="color: #C17267;"></i> Type:
+                            <%= requests[i].property.property_type %>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <i class="fas fa-bed  mr-2" style="color: #C17267;"></i><%= requests[i].property.bedrooms %>
+                        </div>
+                        <div class="col-6">
+                            <i class="fas fa-bath  mr-2" style="color: #C17267;"></i><%= requests[i].property.bathrooms %>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <i class="fas fa-user mr-2" style="color: #C17267;"></i>
+                            Posted- <%= requests[i].user.name %>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <i class="fas fa-user mr-2" style="color: #C17267;"></i>
+                            Request By- <%= requests[i].user.name %>
+                        </div>
+                    </div>
+                    <hr>
+                    <a href="/requestvideo/<%= requests[i].id %>" class="btn btn-primary"
+                        style="color: #fff; width: 100%; padding: 10px; background-color: #C17267;">UPLOAD VIDEO / FILES</a>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:../../partials/_footer.html -->
+    <%- include("../../partials/footer") %>

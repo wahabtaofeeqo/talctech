@@ -1,0 +1,85 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar" style="background: #915A58;">
+    <ul class="nav">
+        <li class="nav-item nav-profile">
+            <div class="nav-link">
+                <div class="profile-name">
+                    <p class="name text-light">
+                        Welcome
+                    </p>
+                    <p class="designation text-light">
+                        Executive Tenant
+                    </p>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="/home">
+                <i class="fa fa-home menu-icon text-light"></i>
+                <span class="menu-title text-light">Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="/landords/count">
+                <i class="fas fa-hotel menu-icon text-light"></i>
+                <span class="menu-title text-light">Landlords</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="/landlords/pairings">
+                <i class="fas fa-hotel menu-icon text-light"></i>
+                <span class="menu-title text-light">Compatible Landlords</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="/property">
+                <i class="fa fa-puzzle-piece menu-icon text-light"></i>
+                <span class="menu-title text-light">Compactible Properties</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" data-toggle="collapse" href="#ui-settings" aria-expanded="false"
+                aria-controls="ui-settings">
+                <i class="fas fa-clipboard-list menu-icon text-light"></i>
+                <span class="menu-title text-light">Settings</span>
+                <i class="menu-arrow text-light"></i>
+            </a>
+            <div class="collapse" id="ui-settings">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link text-light" href="/criterias">Criteria</a></li>
+                    <li class="nav-item"> <a class="nav-link text-light" href="/profile">Profile</a></li>
+                    <li class="nav-item"> <a class="nav-link text-light" href="/password">Password</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link remove-hover" href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard_dr" onclick="event.preventDefault();
+            document.getElementById('logout-menu').submit();">
+                <div class="pull-left"><i class="fas fa-bell menu-icon text-light"></i><span class="menu-title">Logout</span>
+                </div>
+                <div class="clearfix"></div>
+            </a>
+            <form id="logout-menu" action="/logout" method="POST" style="display: none;">
+            </form>
+        </li>
+    </ul>
+</nav>
+
+<!-- <nav class="sidebar sidebar-offcanvas" id="sidebar" style="background: #915A58;">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link remove-hover" data-toggle="collapse" href="#ui-request" aria-expanded="false"
+                aria-controls="ui-request">
+                <i class="fas fa-clipboard-list menu-icon text-light"></i>
+                <span class="menu-title text-light">Requests</span>
+                <i class="menu-arrow text-light"></i>
+            </a>
+            <div class="collapse" id="ui-request">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link text-light" href="/execrequest">New</a></li>
+                    <li class="nav-item"> <a class="nav-link text-light" href="/execoldrequest">Processed</a></li>
+                </ul>
+            </div>
+        </li>
+        
+    </ul>
+</nav> -->

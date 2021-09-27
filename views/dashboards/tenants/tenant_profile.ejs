@@ -1,0 +1,73 @@
+<% if(user_roles == '1') { %>
+<%- include("../../partials/admin_header") %>
+<%- include("../../partials/admin_sidebar") %>
+<% } else if(user_roles == '2') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/landlord_sidebar") %>
+<% } else if(user_roles == '3') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/user_sidebar") %>
+<% } else if(user_roles == '4') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/renter_sidebar") %>
+<% } else if(user_roles == '5') { %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/exec_sidebar") %>
+<% } %>
+
+<!-- partial -->
+<div class="main-panel">
+    <%- include("../../partials/alerts") %>
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">
+                <%= !edit ? 'View Profile' : 'Edit Profile' %>
+            </h3>
+            <%- include("../../partials/breadcrumb") %>
+        </div>
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title"></h4>
+                        <form class="forms-sample" method="POST" action="<%= !edit ? '': '/editprofile' %>">
+                            <div class="form-group">
+                                <label for="exampleInputUsername1">Name</label>
+                                <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Name"
+                                    value="<%= user.name %>" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email"
+                                    value="<%= user.email %>" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPhone1">Phone</label>
+                                <% if(!edit) { %>
+                                <input type="text" class="form-control" id="exampleInputPhone" placeholder="Phone"
+                                    value="<%= user.phone %>" disabled>
+                                <% } else { %>
+                                <input type="text" class="form-control" id="exampleInputPhone" placeholder="Phone"
+                                    value="<%= user.phone %>" name="phone" required>
+                                <% } %>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12  d-flex align-items-center justify-content-center">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <% if(!edit) { %>
+                                        <a href="/editprofile" class="btn btn-outline-dark btn-block">Edit</a>
+                                        <% } else { %>
+                                        <button type="submit" class="btn btn-outline-dark btn-block">Update</button>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:../../partials/_footer.html -->
+    <%- include("../../partials/footer") %>

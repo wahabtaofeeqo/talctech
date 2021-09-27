@@ -1,0 +1,85 @@
+<%- contentFor('links') %>
+	<link rel="stylesheet" href="assets/css/reg.css">
+
+
+<%- contentFor('body') %>
+
+	<!-- Navbar -->
+	<%- include('../includes/navbar') %>
+	
+	<!-- Alert Messages -->
+		<%- include("../partials/alerts") %>
+
+	<div class="form-signup-div-login">
+        <div class="text-center logo-div">
+        </div>
+        <p class="text-form">Login to your account</p>
+        <div class="line-rule"></div>
+        <form action="/login" method="POST">
+            <!-- Email Address -->
+            <div>
+            <label>Your Email</label>
+            <input type="email" name="email" class="form-control input" placeholder="Enter email address">
+            </div>
+
+            <!-- Password -->
+            <div>
+            <label>Your Password</label>
+            <input type="password" name="password" class="form-control input" placeholder="Enter your password">
+            </div>
+
+            <div class="row">
+                <!-- Keep Me Signed In -->
+                <div class="col-md-6 py-2 signed-in">
+                    <input type="checkbox"> <span>Keep me signed in</span>
+                </div>
+
+                <!-- Forgot Password -->
+                <div class="col-md-6 py-2 forgot-password d-none">
+                    <p><a type="button" data-toggle="modal" data-target="#exampleModal">Forgot Password?</a></p>
+                </div>
+            </div>
+            
+            <!-- Login button -->
+            <div>
+            <input type="submit" class="btn btn-block login-btn" value="LOGIN" name="submit">
+            </div>
+
+            <!-- Don't have an account -->
+            <div class="col-md-12 py-4 text-center dont-have-account">
+                <p>Don't have an account? <a href="signup">Register</a></p>
+            </div>
+        </form>
+    </div>
+    
+    <!-- 
+        -----------------
+        Forgot Password Modal
+    ------------------------->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Forgot Password</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <p class="forgot-text">We will send an email to reset your password</p>
+                <form>
+                    <!-- Email Address -->
+                    <div>
+                    <label>Your Email</label>
+                    <input type="email" class="form-control input-forgot" placeholder="Enter email address">
+                    </div>
+                    
+                    <!-- Submit Button-->
+                    <div>
+                    <input type="submit" class="btn btn-block login-btn-forgot" value="SUBMIT" name="submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
