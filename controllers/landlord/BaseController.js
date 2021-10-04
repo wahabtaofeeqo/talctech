@@ -305,62 +305,70 @@ exports.updateProperty = async (req, res) => {
 }
 
 exports.register = async (req, res) => {
+	try {
 
-	let user = await User.findOne({
-        where: {
-            email: {
-                [Op.eq]: req.body.email
-            }
-        }
-    });
+		let user = await User.findOne({
+	        where: {
+	            email: {
+	                [Op.eq]: req.body.email
+	            }
+	        }
+	    });
 
-    if(user) {
-    	res.json({
-			error: true,
-			message: 'Email has already been taken'
-		})
-    }
-
-    user = await User.create({
-    	name: req.body.name,
-        email: req.body.email,
-        phone: req.body.phone,
-        password: bcrypt.hashSync(req.body.password, 10),
-        role_id: 2
-    });
-
-    if(user) {
-    	const landlord = await Landlord.create({
-    		landlord_id: user.id,
-            tenant_employment: req.body.employment,
-            tenant_income: req.body.income,
-            professionals: req.body.professional,
-            preference: req.body.preference,
-            smoker: req.body.smoke,
-            drinker: req.body.drink,
-            electricity: req.body.electricity
-    	})
-
-    	if(landlord) {
-    		req.session.userRole = 2;
-    		initSession(req);
-    		res.json({
-				error: false,
-				message: 'Account created successfully',
-				redirect: '/pay'
-			})
-    	}
-    	else {
-    		res.json({
+	    if(user) {
+	    	res.json({
 				error: true,
-				message: 'Error occur. Please try again'
+				message: 'Email has already been taken'
 			})
-    	}
-    }
-    else {
-    	res.json({
+	    }
+
+	    user = await User.create({
+	    	name: req.body.name,
+	        email: req.body.email,
+	        phone: req.body.phone,
+	        password: bcrypt.hashSync(req.body.password, 10),
+	        role_id: 2
+	    });
+
+	    if(user) {
+	    	const landlord = await Landlord.create({
+	    		landlord_id: user.id,
+	            tenant_employment: req.body.employment,
+	            tenant_income: req.body.income,
+	            professionals: req.body.professional,
+	            preference: req.body.preference,
+	            smoker: req.body.smoke,
+	            drinker: req.body.drink,
+	            electricity: req.body.electricity
+	    	})
+
+	    	if(landlord) {
+	    		req.session.userRole = 2;
+	    		initSession(req);
+	    		res.json({
+					error: false,
+					message: 'Account created successfully',
+					redirect: '/pay'
+				})
+	    	}
+	    	else {
+	    		res.json({
+					error: true,
+					message: 'Error occur. Please try again'
+				})
+	    	}
+	    }
+	    else {
+	    	res.json({
+				error: true,
+				message: 'Account was not created'
+			})
+	    }
+	}
+	catch(e) {
+		res.json({
 			error: true,
-			message: 'Account was not created'
+			message: e.message
 		})
-    }
+	}
 }

@@ -24,6 +24,7 @@ const TenantController = require("../controllers/TenantController");
 const LandlordController = require("../controllers/LandlordController");
 const mainController = require("../controllers/MainController");
 const paymentController = require("../controllers/PaymentController");
+const testController = require("../controllers/TestController");
 
 // middlewares
 const AuthMiddleware = require("../middlewares/auth_middleware");
@@ -210,7 +211,6 @@ router.get('/payment/executive', paymentController.executive);
 router.get('/payment-redirect', paymentController.paymentResponse);
 router.get('/payment-failure', paymentController.paymentFailure);
 
-
-router.get('/test', AuthController.test);
+router.get('/test/email', testController.email);
 
 module.exports = router;

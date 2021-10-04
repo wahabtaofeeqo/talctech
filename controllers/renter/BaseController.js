@@ -13,6 +13,8 @@ const RentProperty = require("../../models").RentProperty;
 const Payment = require("../../models").Payment;
 const Renter = require("../../models").Renter;
 
+const emailService = require('../../services/EmailService');
+
 const initSession = (req) => {
     req.session.email = req.body.email;
     req.session.phone = req.body.phone;
@@ -264,6 +266,13 @@ exports.register = async (req, res) => {
     	if(tenant) {
     		req.session.userRole = 4;
     		// initSession(req);
+            try {
+                emailService.sendMail(req.body.email, '<p>Welcom to Talctech</p>');
+            }
+            catch(e) {
+                console.log('Error: ' + e.message);
+            }
+
     		res.json({
 				error: false,
 				message: 'Account created successfully',

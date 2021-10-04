@@ -10,13 +10,13 @@ let transporter = nodemailer.createTransport({
 	},
 });
 
-exports.sendMail = async (email, message) => {
+exports.sendMail = async (email, message, subject = 'Talctech Rentals') => {
 	try {
 		let info = await transporter.sendMail({
 		    from: process.env.EMAIL_FROM, // sender address
 		    to: email, // list of receivers
-		    subject: "Message", // Subject line
-		    text: message, // plain text body
+		    subject: subject, // Subject line
+		    html: message
 		});
 	}
 	catch(e) {

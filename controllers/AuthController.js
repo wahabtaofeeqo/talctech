@@ -37,18 +37,26 @@ const initSession = (req) => {
 exports.makePayment = async (req, res, next) => {
 
     let plan;
-    if(req.session.userRole == 3)
+    let fee;
+
+    if(req.session.userRole == 3) {
+        fee = process.env.TENANT_FEE;
         plan = process.env.TENANT_PLAN_CODE;
+    }
 
-    if(req.session.userRole == 4)
+    if(req.session.userRole == 4) {
+        fee = process.env.RENTER_FEE;
         plan = process.env.RENTER_PLAN_CODE;
+    }
 
-    if(req.session.userRole == 2)
+    if(req.session.userRole == 2) {
+        fee = process.env.LANDLORD_FEE;
         plan = process.env.LANDLORD_PLAN_CODE;
+    }
 
     const post = {
         tx_ref: 'talctech-tx-' + Math.random().toString(36).substr(2, 5),
-        amount: 100,
+        amount: fee,
         currency: 'NGN',
         redirect_url: req.protocol + '://' + req.headers.host + '/payment-redirect',
         payment_options: 'card',
