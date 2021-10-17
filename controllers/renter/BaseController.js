@@ -228,68 +228,83 @@ exports.home = async (req, res) => {
 
 exports.register = async (req, res) => {
 
-	let user = await User.findOne({
-        where: {
-            email: {
-                [Op.eq]: req.body.email
+	try {
+
+        let renter = null;
+
+        let user = await User.findOne({
+            where: {
+                email: {
+                    [Op.eq]: req.body.email
+                }
+            }
+        });
+
+        if(user) {
+
+            renter = await Renter.findOne({
+                where: {
+                    user_id: {
+                        [Op.eq]: user.id
+                    }
+                }
+            })
+
+            if(renter) {
+                res.json({
+                    error: true,
+                    message: 'The email has been used for renter Account'
+                });
             }
         }
-    });
+        else {
+            user = await User.create({
+                name: req.body.name,
+                email: req.body.email,
+                phone: req.body.phone,
+                password: bcrypt.hashSync(req.body.password, 10),
+                role_id: 4,
+                status: true
+            });
+        }
 
-    if(user) {
-    	res.json({
-			error: true,
-			message: 'Email has already been taken'
-		})
-    }
+        if(renter == null) {
+            renter = await Renter.create({
+                user_id: user.id,
+                tenant_employment: req.body.employed,
+                tenant_income: req.body.income,
+                professionals: req.body.professional,
+                smoker: req.body.smoker,
+                drinker: req.body.drinker,
+                electricity: req.body.electricity
+            })
 
-    user = await User.create({
-    	name: req.body.name,
-        email: req.body.email,
-        phone: req.body.phone,
-        password: bcrypt.hashSync(req.body.password, 10),
-        role_id: 4,
-        status: true
-    });
+            if(!user.email_verified) {
+               try{
 
-    if(user) {
-    	const tenant = await Renter.create({
-    		user_id: user.id,
-            tenant_employment: req.body.employed,
-            tenant_income: req.body.income,
-            professionals: req.body.professional,
-            smoker: req.body.smoker,
-            drinker: req.body.drinker,
-            electricity: req.body.electricity
-    	})
+                   let message = '<p>Thank you for signing up with TalcTech.</p>'; 
+                   message += '<p>You have one more step to go to complete the process.</p>';
+                   message +=  '<p>Please click the link below to verify your email.</p>'
+                   message += `<a href="${req.protocol + '://' + req.headers.host + '/verify?email=' + user.email}">Verify</a>`;
 
-    	if(tenant) {
-    		req.session.userRole = 4;
-    		// initSession(req);
-            try {
-                emailService.sendMail(req.body.email, '<p>Welcom to Talctech</p>');
-            }
-            catch(e) {
-                console.log('Error: ' + e.message);
+                   emailService.sendMail(req.body.email, message);
+               }
+               catch(e) {
+                   console.log('Error', e);
+               }
             }
 
-    		res.json({
-				error: false,
-				message: 'Account created successfully',
+            res.json({
+                error: false,
+                message: 'Account created successfully',
                 redirect: '/login'
-			})
-    	}
-    	else {
-    		res.json({
-				error: true,
-				message: 'Error occur. Please try again'
-			})
-    	}
+            })
+        }
     }
-    else {
-    	res.json({
-			error: true,
-			message: 'Account was not created'
-		})
+    catch(e) {
+        res.json({
+            error: true,
+            message: 'Error occur. Please try again'
+        })
     }
 }

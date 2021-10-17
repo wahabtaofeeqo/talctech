@@ -80,7 +80,7 @@ router.get("/contact", BaseController.contact);
 router.get("/feature", BaseController.feature);
 router.get("/rentals", BaseController.rentals);
 router.get("/terms", BaseController.terms);
-
+router.get("/verify", AuthController.verify);
 router.get("/home", [AuthMiddleware.redirectLogin, AuthMiddleware.redirectCriteria], HomeController.homepage);
 
 // admin
@@ -137,6 +137,7 @@ router.post("/upgrade/tenant", DashboardController.upGradeTenant);
 router.get("/tenants/count", LandlordController.countTenantsPage);
 router.get("/tenants/pairings", LandlordController.compactibleTenantPage);
 router.get("/exectenants/pairings", LandlordController.compactibleExecTenantPage);
+
 // admin
 router.get("/requestvideo/:id", AuthMiddleware.redirectAdminLogin, RequestController.requestVideoPage);
 
@@ -153,48 +154,10 @@ router.get("/userprofile/:id", DashboardController.viewUser);
 // landlord
 router.get("/chat/:id/:userId", ChatController.landlordChatPage);
 
-
 // Routes
 router.get('/properties/:id', mainController.propertyDetails);
 router.get('/booking/:id', mainController.shortTermsPropertyDetails);
 router.get('/dashboard', mainController.dashboard);
-router.get('/paying', (req, res) => {
-    const post = {
-        tx_ref: 'talctech-tx-' + Math.random().toString(36).substr(2, 5),
-        amount: 100,
-        currency: 'NGN',
-        redirect_url: 'http://localhost:3000/payment-check',
-        payment_options: 'card',
-        payment_plan: 13049,
-        customer: {
-            name: req.session.name,
-            email: req.session.email,
-            phonenumber: req.session.phone
-        },
-        customizations: {
-            title: 'Account Creation Fee',
-            destination: '',
-            logo: 'http://localhost:3000/images/logo.jpg'
-        }
-    }
-
-    const header = {
-        headers: {
-            Authorization: 'Bearer FLWSECK_TEST-77ac41d89ae881b44497824a3c4306b9-X'
-        }
-    }
-
-    axios.post('https://api.flutterwave.com/v3/payments', post, header)
-        .then(response => {
-            if(response.data.status) {
-                res.redirect(response.data.data.link);
-            }
-        })
-        .catch(e => {
-            req.flash('warning', "Payment could not initialized");
-            res.redirect("back");
-        });
-})
 
 // Book
 router.get('/book/:id', paymentController.book);

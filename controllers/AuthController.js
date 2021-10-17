@@ -55,38 +55,27 @@ exports.makePayment = async (req, res, next) => {
     }
 
     const post = {
-        tx_ref: 'talctech-tx-' + Math.random().toString(36).substr(2, 5),
+        name: req.session.name,
+        email: req.session.email,
         amount: fee,
-        currency: 'NGN',
-        redirect_url: req.protocol + '://' + req.headers.host + '/payment-redirect',
-        payment_options: 'card',
-        payment_plan: plan,
-        customer: {
-            name: req.session.name,
-            email: req.session.email,
-            phonenumber: req.session.phone
-        },
-        customizations: {
-            title: 'Account Creation Fee',
-            destination: '',
-            logo: req.protocol + '://' + req.headers.host + '/assets/img/logo.jpg'
-        }
-    }
+        plan: plan,
+        callback_url: req.protocol + '://' + req.headers.host + '/payment-redirect'
+     }
 
     const header = {
         headers: {
-            Authorization: 'Bearer ' + process.env.RAVE_SECRET_KEY
+            Authorization: 'Bearer ' + process.env.SECRET_KEY
         }
     }
 
-    axios.post('https://api.flutterwave.com/v3/payments', post, header)
+    axios.post('https://api.paystack.co/transaction/initialize', post, header)
         .then(response => {
-            console.log(response);
             if(response.data.status) {
-                res.redirect(response.data.data.link);
+                res.redirect(response.data.data.authorization_url);
             }
         })
         .catch(e => {
+            console.log('Error', e);
             req.flash('warning', "Payment could not initialized");
             res.redirect("back");
         });
@@ -392,7 +381,116 @@ exports.changePassword = (req, res, next) => {
     }
 }
 
+exports.apiLogin = async (req, res) => {
+
+    const { email, password } = req.body;
+
+    try {
+        const user = await Users.findOne({
+            where: {
+                email: {
+                    [Op.eq]: email
+                }
+            }
+        });
+
+        if(user) {
+            if(user.status) {
+                if (bcrypt.compareSync(password, user.password)) {
+                    if(user.role_id == 1) {
+                         res.json({
+                            error: true,
+                            message: 'Login not allowed',
+                        })
+                    }
+                    else {
+                        if(user.suspended) {
+                            res.json({
+                                error: true,
+                                message: 'Your account has been suspended',
+                            })
+                        }
+                        else if(!user.email_verified) {
+                            res.json({
+                                error: true,
+                                message: 'Your email has not been verified',
+                            })
+                        }
+                        else {
+                            req.session.user = user;
+                            res.json({
+                                error: false,
+                                message: 'Login successfully',
+                                redirect: '/dashboard'
+                            })
+                        }
+                    }
+                }
+                else {
+                     res.json({
+                        error: true,
+                        message: 'Invalid credentials',
+                    })
+                }
+            }
+            else {
+                res.json({
+                    error: true,
+                    message: 'You account has not been activated. Make payment!',
+                })
+            }
+        }
+        else {
+            res.json({
+                error: true,
+                message: 'Invalid credentials',
+            })
+        }
+    }
+    catch(e) {
+        res.json({
+            error: true,
+            message: 'Invalid credentials',
+        })
+    }    
+}
+
 exports.test = async (req, res) => {
     await emailService.sendMail('taofeekolamilekan218@gmail.com', 'This is a Test Boss');
     res.send('hello World ');
+}
+
+exports.verify = async(req, res) => {
+    let email = req.query.email;
+    if(email) {
+
+        const user = await Users.findOne({
+            where: {
+                email: {
+                    [Op.eq]: email
+                }
+            }
+        });
+
+        if(user) {
+            await Users.update({
+                    email_verified: true
+                },
+                {
+                    where: {
+                        id: {
+                            [Op.eq]: user.id
+                          }
+                    }
+                 });
+
+            req.flash('success', "Your Email has been verified");
+            res.redirect("login");
+        }
+        else {
+            req.flash('warning', "Email not recognized");
+            res.redirect("login");
+        }
+    }
+    res.redirect('404');
 }

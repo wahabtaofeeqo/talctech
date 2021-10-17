@@ -96,11 +96,11 @@ exports.admin = async (req, res, next) => {
 
 exports.tenant = async (req, res, next) => {
 
-    if(req.session) {
+    if(req.session.user) {
         const tenant = await User.findOne({
             where: {
                 id: {
-                    [Op.eq]: req.session.userId
+                    [Op.eq]: req.session.user.id
                 }
             }
         });
@@ -121,16 +121,16 @@ exports.tenant = async (req, res, next) => {
 
 exports.renter = async (req, res, next) => {
 
-    if(req.session) {
-        const tenant = await User.findOne({
+    if(req.session.user) {
+        const user = await User.findOne({
             where: {
                 id: {
-                    [Op.eq]: req.session.userId
+                    [Op.eq]: req.session.user.id
                 }
             }
         });
 
-        (tenant && tenant.role_id == 4) ? next() : res.redirect('/login');
+        (user && user.role_id == 4) ? next() : res.redirect('/login');
     }
     else {
         res.redirect('/login');
@@ -139,11 +139,11 @@ exports.renter = async (req, res, next) => {
 
 exports.landlord = async (req, res, next) => {
 
-    if(req.session) {
+    if(req.session.user) {
         const user = await User.findOne({
             where: {
                 id: {
-                    [Op.eq]: req.session.userId
+                    [Op.eq]: req.session.user.id
                 }
             }
         });

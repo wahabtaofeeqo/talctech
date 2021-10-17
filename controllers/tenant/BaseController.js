@@ -428,60 +428,84 @@ exports.survey = async (req, res) => {
 
 exports.register = async (req, res) => {
 
-	let user = await User.findOne({
-        where: {
-            email: {
-                [Op.eq]: req.body.email
+	try{
+
+		let tenant = null;
+		let user = await User.findOne({
+	        where: {
+	            email: {
+	                [Op.eq]: req.body.email
+	            }
+	        }
+	    });
+
+	    if(user) {
+
+	    	tenant = await Tenant.findOne({
+	    		where: {
+	    			tenant_id: {
+	    				[Op.eq]: user.id
+	    			}
+	    		}
+	    	})
+
+	    	if(tenant) {
+	    		res.json({
+					error: true,
+					message: 'The email has been used for Tenant Account'
+				})
+	    	}
+	    }
+	    else {
+	    	user = await User.create({
+		    	name: req.body.name,
+		        email: req.body.email,
+		        phone: req.body.phone,
+		        password: bcrypt.hashSync(req.body.password, 10),
+		        role_id: 3
+		    });
+	    }
+
+	    if(tenant == null) {
+
+	    	tenant = await Tenant.create({
+	    		tenant_id: user.id,
+	            tenant_employment: req.body.employment,
+	            tenant_income: req.body.income,
+	            professionals: req.body.professional,
+	            smoker: req.body.smoke,
+	            drinker: req.body.drink,
+	            electricity: req.body.electricity
+	    	})
+
+	    	if(!user.email_verified) {
+               try{
+               	  let message = 'Thank you for signing up with TalcTech.'; 
+                   message += 'You have one more step to go to complete the process.';
+                   message +=  'Please click the link below to verify your email;'
+                   message += `<a href="${req.protocol + '://' + req.headers.host + '/verify?email=' + user.email}">Verify</a>`;
+
+                   emailService.sendMail(req.body.email, message);
+               }
+               catch(e) {
+               	
+               }
             }
-        }
-    });
 
-    if(user) {
-    	res.json({
-			error: true,
-			message: 'Email has already been taken'
-		})
-    }
-
-    user = await User.create({
-    	name: req.body.name,
-        email: req.body.email,
-        phone: req.body.phone,
-        password: bcrypt.hashSync(req.body.password, 10),
-        role_id: 3
-    });
-
-    if(user) {
-    	const tenant = await Tenant.create({
-    		tenant_id: user.id,
-            tenant_employment: req.body.employment,
-            tenant_income: req.body.income,
-            professionals: req.body.professional,
-            smoker: req.body.smoke,
-            drinker: req.body.drink,
-            electricity: req.body.electricity
-    	})
-
-    	if(tenant) {
-    		req.session.userRole = 3;
+	    	req.session.userRole = 3;
     		initSession(req);
     		res.json({
 				error: false,
 				message: 'Account created successfully',
 				redirect: '/pay'
 			})
-    	}
-    	else {
-    		res.json({
-				error: true,
-				message: 'Error occur. Please try again'
-			})
-    	}
-    }
-    else {
-    	res.json({
+	    }
+	} // Check error
+	catch(e) {
+		console.log(e);
+		res.json({
 			error: true,
-			message: 'Account was not created'
+			message: 'Error occur. Please try again'
 		})
-    }
+	}
 }

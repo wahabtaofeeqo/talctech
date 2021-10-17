@@ -187,6 +187,9 @@
 					swal(response.data.message)
 					if(!response.data.error)
 						$(form).trigger('reset');
+
+					if(response.data.redirect)
+						location.href = response.data.redirect
 				})
 				.catch(e => {
 					swal('Server Error: ' + e.message)

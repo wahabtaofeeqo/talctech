@@ -307,6 +307,7 @@ exports.updateProperty = async (req, res) => {
 exports.register = async (req, res) => {
 	try {
 
+		let landlord = null;
 		let user = await User.findOne({
 	        where: {
 	            email: {
@@ -316,22 +317,34 @@ exports.register = async (req, res) => {
 	    });
 
 	    if(user) {
-	    	res.json({
-				error: true,
-				message: 'Email has already been taken'
-			})
+
+	    	landlord = await Landlord.findOne({
+	    		where: {
+	    			landlord_id: {
+	    				[Op.eq]: user.id
+	    			}
+	    		}
+	    	})
+
+	    	if(landlord) {
+	    		res.json({
+                    error: true,
+                    message: 'The email has been used for Landlord Account'
+                });
+	    	}
+	    }
+	    else {
+	    	user = await User.create({
+		    	name: req.body.name,
+		        email: req.body.email,
+		        phone: req.body.phone,
+		        password: bcrypt.hashSync(req.body.password, 10),
+		        role_id: 2
+		    });
 	    }
 
-	    user = await User.create({
-	    	name: req.body.name,
-	        email: req.body.email,
-	        phone: req.body.phone,
-	        password: bcrypt.hashSync(req.body.password, 10),
-	        role_id: 2
-	    });
-
-	    if(user) {
-	    	const landlord = await Landlord.create({
+	    if(landlord == null) {
+	    	landlord = await Landlord.create({
 	    		landlord_id: user.id,
 	            tenant_employment: req.body.employment,
 	            tenant_income: req.body.income,
@@ -342,33 +355,34 @@ exports.register = async (req, res) => {
 	            electricity: req.body.electricity
 	    	})
 
-	    	if(landlord) {
-	    		req.session.userRole = 2;
-	    		initSession(req);
-	    		res.json({
-					error: false,
-					message: 'Account created successfully',
-					redirect: '/pay'
-				})
-	    	}
-	    	else {
-	    		res.json({
-					error: true,
-					message: 'Error occur. Please try again'
-				})
-	    	}
-	    }
-	    else {
-	    	res.json({
-				error: true,
-				message: 'Account was not created'
+	    	if(!user.email_verified) {
+               try{
+               	  let message = 'Thank you for signing up with TalcTech.'; 
+                   message += 'You have one more step to go to complete the process.';
+                   message +=  'Please click the link below to verify your email;'
+                   message += `<a href="${req.protocol + '://' + req.headers.host + '/verify?email=' + user.email}">Verify</a>`;
+
+                   emailService.sendMail(req.body.email, message);
+               }
+               catch(e) {
+               	
+               }
+            }
+
+	    	req.session.userRole = 2;
+    		initSession(req);
+    		res.json({
+				error: false,
+				message: 'Account created successfully',
+				redirect: '/pay'
 			})
 	    }
 	}
 	catch(e) {
 		res.json({
 			error: true,
-			message: e.message
+			stack: e,
+			message: 'Error occur. Please try again'
 		})
 	}
 }

@@ -7,9 +7,9 @@ const { Op } = require("sequelize");
 const router = express.Router();
 
 //
-const auth = require('../middlewares/auth_middleware');
-
 const api = require('../controllers/API')
+const auth = require('../middlewares/auth_middleware');
+const authController = require('../controllers/AuthController');
 
 router.post('/pair', auth.api, api.pair);
 router.post('/logout', (req, res) => {
@@ -29,5 +29,6 @@ router.post('/request-view', api.requestPropertyView);
 router.post('/user-status', api.changeUserStatus);
 router.post('/check-survey', api.checkSurvey);
 router.post('/submit-survey', api.submitSurvey);
+router.post('/login', authController.apiLogin);
 
 module.exports = router;

@@ -62,7 +62,7 @@ exports.dashboard = async (req, res) => {
 		res.redirect('/admin');
 	}
 	else {
-		res.redirect("/home");
+		res.redirect('/landlord');
 	}
 }
 

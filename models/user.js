@@ -84,6 +84,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
+    email_verified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     usertype: {
       allowNull: true,
       type: DataTypes.STRING

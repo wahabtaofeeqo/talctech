@@ -20,27 +20,22 @@ const header = {
 const makePayment = async (req, res, title, amount) => {
 
     const post = {
-        tx_ref: 'talctech-tx-' + Math.random().toString(36).substr(2, 5),
+        name: req.session.user.name,
+        email: req.session.user.email,
         amount: amount,
-        currency: 'NGN',
-        redirect_url: req.protocol + '://' + req.headers.host + '/payment-redirect',
-        payment_options: 'card',
-        customer: {
-            name: req.session.user.name,
-            email: req.session.user.email,
-            phonenumber: req.session.user.phone
-        },
-        customizations: {
-            title: title,
-            destination: '',
-            logo: req.protocol + '://' + req.headers.host + '/assets/img/logo.jpg'
+        callback_url: req.protocol + '://' + req.headers.host + '/payment-redirect'
+     }
+
+    const header = {
+        headers: {
+            Authorization: 'Bearer ' + process.env.SECRET_KEY
         }
     }
 
-    axios.post('https://api.flutterwave.com/v3/payments', post, header)
+    axios.post('https://api.paystack.co/transaction/initialize', post, header)
         .then(response => {
             if(response.data.status) {
-                res.redirect(response.data.data.link);
+                res.redirect(response.data.data.authorization_url);
             }
         })
         .catch(e => {
@@ -197,94 +192,108 @@ exports.renter = async (req, res) => {
 
 exports.paymentResponse = async (req, res) => {
 
-	if(req.query.status == 'successful') {
+    const reference = req.query.reference;
+    const header = {
+        headers: {
+            Authorization: 'Bearer ' + process.env.SECRET_KEY
+        }
+    };
 
-        // Get user
-        let user = req.session.user;
-        if(!user) {
-            user = await User.findOne({
-                where: {
-                    email: {
-                        [Op.eq]: req.session.email
-                    }
+    axios.get('https://api.paystack.co/transaction/verify/' + reference, header)
+        .then(async (response) => {
+
+            if(response.data.data.status == 'success') {
+              
+                let user = req.session.user;
+                if(!user) {
+                    user = await User.findOne({
+                        where: {
+                            email: {
+                                [Op.eq]: req.session.email
+                            }
+                        }
+                    });
                 }
-            });
-        }
 
-        // Save payment details
-        await Payment.create({
-            tx_ref: req.query.tx_ref,
-            transaction_id: req.query.transaction_id,
-            user_id: user.id
-        });
+                // Save payment details
+                await Payment.create({
+                    tx_ref: req.query.tx_ref,
+                    transaction_id: reference,
+                    user_id: user.id
+                });
 
-		const reason = req.session.paymentReason;
+                const reason = req.session.paymentReason;
 
-        // Registration
-        if(reason && reason == 'Registration') {
-            await User.update({
-                status: true
-            },
-            {
-                where: {
-                    id: {
-                        [Op.eq]: user.id
-                    }
+                // Registration
+                if(reason && reason == 'Registration') {
+                    await User.update({
+                        status: true
+                    },
+                    {
+                        where: {
+                            id: {
+                                [Op.eq]: user.id
+                            }
+                        }
+                    });
+
+                    req.flash('success', 'Account created successfully');
+                    res.redirect('/login');    
                 }
-            });
 
-            req.flash('success', 'Account created successfully');
-            res.redirect('/dashboard');    
-        }
+                // Account Upgrade
+                if(reason && reason == 'Upgrade') {
+                    await User.update({
+                        role_id: 5
+                    },
+                    {
+                        where: {
+                            id: {
+                                [Op.eq]: user.id
+                            }
+                        }
+                    });
 
-        // Account Upgrade
-		if(reason && reason == 'Upgrade') {
-			await User.update({
-				role_id: 5
-			},
-			{
-				where: {
-					id: {
-						[Op.eq]: user.id
-					}
-				}
-			});
-
-			req.session.user.role_id = 5
-			req.flash('success', 'Account Upgraded successfully');
-			res.redirect('/dashboard');	
-		}
-
-        // Property Booking
-        if(reason == 'Booking') {
-
-            await Booking.create({
-                user_id: user.id,
-                property_id: req.session.propertyID
-            });
-
-            req.flash('success', 'Property Booked successfully');
-            res.redirect('/dashboard');
-        }
-
-        // Property Posting
-        if(reason == 'Property') {
-            await Property.update({ active: true }, {
-                where: {
-                    id: {
-                        [Op.eq]: req.session.property.id
-                    }
+                    req.session.user.role_id = 5
+                    req.flash('success', 'Account Upgraded successfully');
+                    res.redirect('/dashboard');    
                 }
-            });
 
-            req.flash('success', 'Property Added successfully');
-            res.redirect('/dashboard');
-        }
-	}
-	else {
-		req.flash('warning', "Payment not successful");
-        res.redirect('/payment-failure');
-	}
+                // Property Booking
+                if(reason == 'Booking') {
+
+                    await Booking.create({
+                        user_id: user.id,
+                        property_id: req.session.propertyID
+                    });
+
+                    req.flash('success', 'Property Booked successfully');
+                    res.redirect('/dashboard');
+                }
+
+                // Property Posting
+                if(reason == 'Property') {
+                    await Property.update({ active: true }, {
+                        where: {
+                            id: {
+                                [Op.eq]: req.session.property.id
+                            }
+                        }
+                    });
+
+                    req.flash('success', 'Property Added successfully');
+                    res.redirect('/dashboard');
+                }
+            }
+            else {
+                res.send('Payment could not be verified');
+            }
+        })
+        .catch(e => {
+            console.log('Errorrr', e);
+            res.send('Payment could not be verified');
+        })
+        
 }
 
 exports.paymentFailure = async (req, res) => {
