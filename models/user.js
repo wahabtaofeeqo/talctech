@@ -76,6 +76,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
+    upgraded: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     suspended: {
       type: DataTypes.BOOLEAN,
       defaultValue: false

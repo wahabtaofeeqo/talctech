@@ -7,7 +7,7 @@ const Users = require("../models").User;
 const Payment = require('../models').Payment;
 const LandlordTerms = require("../models").LandlordTerm;
 const TenantTerms = require("../models").TenantTerm;
-
+const Renter = require('../models').Renter;
 const parameters = require("../config/params");
 
 // Validator
@@ -383,10 +383,10 @@ exports.changePassword = (req, res, next) => {
 
 exports.apiLogin = async (req, res) => {
 
-    const { email, password } = req.body;
+    const { email, password, type } = req.body;
 
     try {
-        const user = await Users.findOne({
+        let user = await Users.findOne({
             where: {
                 email: {
                     [Op.eq]: email
@@ -395,35 +395,96 @@ exports.apiLogin = async (req, res) => {
         });
 
         if(user) {
+
             if(user.status) {
                 if (bcrypt.compareSync(password, user.password)) {
+
                     if(user.role_id == 1) {
                          res.json({
                             error: true,
                             message: 'Login not allowed',
                         })
                     }
-                    else {
-                        if(user.suspended) {
-                            res.json({
-                                error: true,
-                                message: 'Your account has been suspended',
-                            })
-                        }
-                        else if(!user.email_verified) {
-                            res.json({
-                                error: true,
-                                message: 'Your email has not been verified',
-                            })
+
+                    if(type == 2) {
+                        const check = await LandlordTerms.findOne({
+                            where: {
+                                landlord_id: user.id
+                            }
+                        });
+
+                        if(check) {
+                           user = await updateUser(user, type);
                         }
                         else {
-                            req.session.user = user;
                             res.json({
-                                error: false,
-                                message: 'Login successfully',
-                                redirect: '/dashboard'
+                                error: true,
+                                message: 'Landlord account is not available for this Email'
                             })
                         }
+                    }
+
+                    if(type == 3 || type == 5) {
+                        const check = await TenantTerms.findOne({
+                            where: {
+                                tenant_id: {
+                                    [Op.eq]: user.id
+                                }
+                            }
+                        });
+
+                        if(check) {
+                           user = await updateUser(user, type);
+                        }
+                        else {
+                            res.json({
+                                error: true,
+                                message: 'Tenant account is not available for this Email'
+                            })
+                        }
+                    }
+
+                    if(type == 4) {
+                        const check = await Renter.findOne({
+                            where: {
+                                user_id: {
+                                    [Op.eq]: user.id
+                                }
+                            }
+                        });
+
+                        if(check) {
+                           user = await updateUser(user, type);
+                        }
+                        else {
+                            res.json({
+                                error: true,
+                                message: 'Renter account is not available for this Email'
+                            })
+                        }
+                    }
+                    
+                    if(user.suspended) {
+                        res.json({
+                            error: true,
+                            message: 'Your account has been suspended',
+                        })
+                    }
+                    else if(!user.email_verified) {
+                        res.json({
+                            error: true,
+                            message: 'Your email has not been verified',
+                        })
+                    }
+                    else {
+                        req.session.user = user;
+                        req.session.userId = user.id;
+
+                        res.json({
+                            error: false,
+                            message: 'Login successfully',
+                            redirect: '/dashboard'
+                        })
                     }
                 }
                 else {
@@ -493,4 +554,48 @@ exports.verify = async(req, res) => {
         }
     }
     res.redirect('404');
+}
+
+const updateUser = async (user, type) => {
+
+    if(parseInt(type) != 3 && parseInt(type) != 5) {
+        await Users.update({
+            role_id: type
+        }, {
+            where: {
+                id: {
+                    [Op.eq]: user.id
+                }
+            }
+        })
+
+        user = await Users.findOne({
+            where: {
+                id: {
+                    [Op.eq]: user.id
+                }
+            }
+        })
+    }
+    else {
+         await Users.update({
+            role_id: (user.upgraded) ? 5 : 3
+        }, {
+            where: {
+                id: {
+                    [Op.eq]: user.id
+                }
+            }
+        })
+
+        user = await Users.findOne({
+            where: {
+                id: {
+                    [Op.eq]: user.id
+                }
+            }
+        })
+    }
+
+    return user;
 }

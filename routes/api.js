@@ -20,7 +20,7 @@ router.post('/logout', (req, res) => {
 	})
 });
 
-router.post('/upgrade', auth.api, api.upgrade);
+router.post('/upgrade', api.upgrade);
 router.post('/create-renter', api.createRenter);
 router.post('/delete', api.deleteResource);
 router.post('/add-criteria', api.addCriteria);

@@ -15,6 +15,7 @@ const PropertyVideo = require("../../models").PropertyVideo;
 const Request = require("../../models").Request;
 const Survey = require("../../models").Survey;
 const Booking = require("../../models").Booking;
+const Renter = require('../../models').Renter;
 
 
 exports.fetchMatchedLandlord = async (req, res) => {
@@ -113,11 +114,10 @@ exports.users = async (req, res) => {
 
 exports.tenants = async (req, res) => {
 
-	const tenants = await User.findAll({
-		where: {
-			role_id: {
-				[Op.or]: [3, 5]
-			},
+	const tenants = await Tenant.findAll({
+		include: {
+			model: User,
+			as: 'user'
 		}
 	});
 
@@ -132,11 +132,10 @@ exports.tenants = async (req, res) => {
 
 exports.landlords = async (req, res) => {
 
-	const landlords = await User.findAll({
-		where: {
-			role_id: {
-				[Op.eq]: 2
-			}
+	const landlords = await Landlord.findAll({
+		include: {
+			model: User,
+			as: 'user'
 		}
 	});
 
@@ -145,6 +144,23 @@ exports.landlords = async (req, res) => {
 		user: req.session.user,
 		landlords: landlords,
 		title: 'Landlord'
+	})
+}
+
+exports.renters = async (req, res) => {
+
+	const renters = await Renter.findAll({
+		include: {
+			model: User,
+			as: 'user'
+		}
+	});
+
+	res.render('dashboards/admin/renters', { 
+		layout: 'layouts/adm',
+		user: req.session.user,
+		renters: renters,
+		title: 'Renters'
 	})
 }
 

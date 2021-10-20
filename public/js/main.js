@@ -45,8 +45,9 @@
 
 			axios.post('/api/upgrade', {})
 				.then(response => {
+
 					if(!response.data.error) {
-						location.href = '/payment/executive'
+						location.href = '/payment'
 					}
 					else
 						swal(response.data.message)

@@ -23,9 +23,9 @@
 	        			<% for(let i = 0; i < landlords.length; i++) {%>
 	        				<tr>
 	        					<td><%= (i + 1) %></td>
-	        					<td><%= landlords[i].name %></td>
-	        					<td><%= landlords[i].email %></td>
-	        					<td><%= landlords[i].phone %></td>
+	        					<td><%= (landlords[i].user) ? landlords[i].user.name : 'N/A' %></td>
+	        					<td><%= (landlords[i].user) ? landlords[i].user.email : 'N/A' %></td>
+	        					<td><%= (landlords[i].user) ? landlords[i].user.phone : 'N/A' %></td>
 	        					<td>
 	        						<button class="btn btn-sm btn-danger btn-delete" data-id="<%= landlords[i].id %>" data-type="landlord">Delete</button>
 	        					</td>

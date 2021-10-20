@@ -17,12 +17,13 @@ const header = {
     }
 }
 
-const makePayment = async (req, res, title, amount) => {
+const makePayment = async (req, res, title, amount, plan = '') => {
 
     const post = {
         name: req.session.user.name,
         email: req.session.user.email,
         amount: amount,
+        plan: plan,
         callback_url: req.protocol + '://' + req.headers.host + '/payment-redirect'
      }
 
@@ -45,9 +46,11 @@ const makePayment = async (req, res, title, amount) => {
 }
 
 exports.payment = async (req, res) => {
-
     if(req.session.paymentReason == 'Property') {
         makePayment(req, res, 'Property Posting Fee', process.env.PROPERTY_FEE);
+    }
+    else if(req.session.paymentReason == 'Upgrade') {
+        makePayment(req, res, 'Account Upgrade Payment', process.env.EXECUTIVE_FEE, process.env.EXECUTIVE_PLAN_CODE);
     }
     else {
         req.flash('warning', "Payment could not initialized");
@@ -243,8 +246,19 @@ exports.paymentResponse = async (req, res) => {
 
                 // Account Upgrade
                 if(reason && reason == 'Upgrade') {
+
+                    // axios.get('https://api.paystack.co/customer/' + req.session.user.email, header)
+                    //     .then(response => {
+                    //         console.log(response.data.data.subscriptions);
+
+                    //     })
+                    //     .catch(e => {
+
+                    //     }) 
+                    
                     await User.update({
-                        role_id: 5
+                        role_id: 5,
+                        upgraded: true
                     },
                     {
                         where: {

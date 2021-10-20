@@ -22,7 +22,7 @@ const emailService = require("../services/EmailService");
 const header = {
     headers: {
         'Content-type': 'application/json',
-        Authorization: 'Bearer ' + process.env.RAVE_SECRET_KEY
+        Authorization: 'Bearer ' + process.env.SECRET_KEY
     }
 }
 
@@ -186,15 +186,22 @@ exports.pair = async (req, res) => {
 
 
 // Upgrade Account
-const cancelSubscription = async (req, res, id) => {
+const cancelSubscription = async (req, res, code, token) => {
 	
-	const url = 'https://api.flutterwave.com/v3/subscriptions/' + id + '/cancel';
-	axios.put(url, {}, header)
+	const url = 'https://api.paystack.co/subscription/disable';
+
+	let data = {
+		code,
+		token
+	}
+
+	axios.post(url, data, header)
 		.then(response => {
-			if(response.data.status == 'success') {
+			if(response.data.status) {
 
 				// Redirec to payment route
 				req.session.paymentReason = 'Upgrade';
+
 				res.json({
 					error: false,
 					message: 'Subscription Canceled'
@@ -217,23 +224,36 @@ const cancelSubscription = async (req, res, id) => {
 
 exports.upgrade = async (req, res) => {
 
-	axios.get('https://api.flutterwave.com/v3/subscriptions', header)
-        .then(async (response) => {
+	req.session.paymentReason = 'Upgrade';
+	res.json({
+		error: false,
+		message: 'Account Upgraded initiated'
+	})
 
-        	for(let i = 0; i < response.data.data.length; i++) {
-        		let item = response.data.data[i];
-            	if(item.customer.customer_email == req.session.user.email) {
-            		cancelSubscription(req, res, item.id)
-					break;
-            	}
-        	}
-        })
-        .catch(e => {
-            res.json({
-            	error: true,
-            	message: e.message
-            })
-        });
+	// axios.get('https://api.paystack.co/subscription', header)
+ //        .then(async (response) => {
+
+ //        	for(let i = 0; i < response.data.data.length; i++) {
+ //        		let item = response.data.data[i];
+ //            	if(item.customer.email == req.session.user.email) {
+ //            		cancelSubscription(req, res, item.subscription_code, item.email_token)
+	// 				break;
+ //            	}
+ //        	}
+
+ //     		res.json({
+ //            	error: false,
+ //            	data: response.data,
+ //            	message: 'Data'
+ //            })
+
+ //        })
+ //        .catch(e => {
+ //            res.json({
+ //            	error: true,
+ //            	message: e.message
+ //            })
+ //        });
 }
 
 
@@ -270,7 +290,7 @@ exports.deleteResource = async (req, res) => {
 
 exports.addCriteria = async (req, res) => {
 
-	let user_id = req.session.userId;
+	let user_id = req.session.user.id;
     let property_type = req.body.property;
     let offer_type = req.body.offer;
     let price = req.body.price;

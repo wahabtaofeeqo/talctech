@@ -20,14 +20,14 @@
 	        		</thead>
 
 	        		<tbody>
-	        			<% for(let i = 0; i < tenants.length; i++) {%>
+	        			<% for(let i = 0; i < renters.length; i++) {%>
 	        				<tr>
 	        					<td><%= (i + 1) %></td>
-	        					<td><%= (tenants[i].user) ? tenants[i].user.name : 'N/A' %></td>
-	        					<td><%= (tenants[i].user) ? tenants[i].user.email : 'N/A' %></td>
-	        					<td><%= (tenants[i].user) ? tenants[i].user.phone : 'N/A' %></td>
+	        					<td><%= (renters[i].user) ? renters[i].user.name : 'N/A' %></td>
+	        					<td><%= (renters[i].user) ? renters[i].user.email : 'N/A' %></td>
+	        					<td><%= (renters[i].user) ? renters[i].user.phone : 'N/A' %></td>
 	        					<td>
-	        						<button class="btn btn-sm btn-danger btn-delete" data-id="<%= tenants[i].id %>" data-type="tenant">Delete</button>
+	        						<button class="btn btn-sm btn-danger btn-delete" data-id="<%= renters[i].id %>" data-type="tenant">Delete</button>
 	        					</td>
 	        				</tr>
 	        			<% } %>

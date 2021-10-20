@@ -230,7 +230,7 @@ exports.pairedProperties = async (req, res) => {
 		// Get Paired Properties
 		const properties = await Pairing.findAll({
 			where: {
-				tenant_id: req.session.userId,
+				tenant_id: req.session.user.id,
 				property_id: {
 					[Op.ne]: null
 				}
@@ -250,6 +250,7 @@ exports.pairedProperties = async (req, res) => {
 		});
 	}
 	else {
+
 		res.render('dashboards/tenants/properties', { 
 			layout: 'layouts/tenant',
 			user: req.session.user,
@@ -262,7 +263,12 @@ exports.pairedProperties = async (req, res) => {
 }
 
 exports.addCriteria = async (req, res) => {
-
+	res.render('dashboards/tenants/addCriteria', { 
+		layout: 'layouts/tenant',
+		user: req.session.user,
+		criteria: null,
+		title: 'criteria',
+	})
 }
 
 exports.editCriteria = async (req, res) => {
@@ -475,7 +481,8 @@ exports.register = async (req, res) => {
 	            professionals: req.body.professional,
 	            smoker: req.body.smoke,
 	            drinker: req.body.drink,
-	            electricity: req.body.electricity
+	            electricity: req.body.electricity,
+	            employed: req.body.employed
 	    	})
 
 	    	if(!user.email_verified) {

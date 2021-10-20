@@ -6,7 +6,7 @@
 
     <div class="card">
         <div class="card-header"></div>
-        <form method="POST" action="<%= (criteria) ? '/api/update-criteria' : '/api/add-criteria' %>" id="criteriaForm">
+        <form method="POST" action="<%= (criteria) ? '/api/update-criteria' : '/api/add-criteria' %>" id="ajaxForm">
 
             <input type="hidden" name="id" value="<%= (criteria) ? criteria.id : '' %>">
             <div class="card-body">

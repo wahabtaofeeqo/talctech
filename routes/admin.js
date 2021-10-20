@@ -98,6 +98,7 @@ router.get('/home', auth.admin, baseController.home);
 router.get('/pairing', auth.admin, baseController.pairing);
 router.get('/tenants', auth.admin, baseController.tenants)
 router.get('/landlords', auth.admin, baseController.landlords);
+router.get('/renters', auth.admin, baseController.renters);
 router.get('/users/:status', auth.admin, baseController.users);
 router.get('/pairing/:id', auth.admin, baseController.fetchMatchedLandlord)
 
