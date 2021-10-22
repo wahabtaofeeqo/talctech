@@ -27,31 +27,144 @@ const initSession = (req) => {
     req.session.paymentReason = 'Registration';                            
 }
 
+const pairMatchingLandlord = async (user) => {
 
-exports.paired = async (req, res) => {
-
-	const landlords = await Pairing.findAll({
+	let tenant = await Tenant.findOne({
 		where: {
 			tenant_id: {
-				[Op.eq]: req.session.userId
-			},
-		},
-		include: {
-			model: Property,
-			as: 'property',
-			include: {
-				model: User,
-				as: 'user'
+				[Op.eq]: user.id
 			}
 		}
 	});
 
-	res.render("dashboards/tenants/paired", { 
-		landlords: landlords, 
-		title: 'Properties Landlords',
-		user: req.session.user, 
-		layout: 'layouts/tenant' 
+	let landlords = await Landlord.findAll({
+		where: {
+			[Op.and]: [
+				{
+					tenant_income: {
+						[Op.gte]: tenant.income
+					}
+				},
+				{
+					professionals: tenant.professionals || 0
+				},
+				{
+					electricity: {
+						[Op.gte]: tenant.electricity
+					}
+				}
+			]
+		},
+		include: {
+			model: User,
+			as: 'user'
+		}
 	});
+
+	let paired = 0;
+	let pairCount = null;
+
+	// Add to pairing of the day
+	for(let i = 0; i < landlords.length; i++) {
+		const item = landlords[i];
+
+		let isPaired = await Pairing.findOne({
+			where: {
+				tenant_id: user.id,
+				landlord_id: (item.user) ? item.user.id : ''
+			}
+		});
+
+		if(!isPaired) {
+
+			await Pairing.create({
+				tenant_id: user.id,
+				landlord_id: (item.user) ? item.user.id : '',
+			})
+
+			paired++;
+
+			// Notify
+			if(item.user)
+				emailService.sendMail(item.user.email, 'You have been paired with a new Tenant');
+			emailService.sendMail(user.email, 'You have been paired with a new Landlord');
+
+			pairCount = await PairCounter.findOne({
+				where: {
+					user_id: user.id,
+					dated: moment().format('YYYY-MM-DD')
+				}
+			});
+
+			if(pairCount) {
+				await pairCount.update({
+					count: pairCount.count + 1
+				},
+				{
+					where: {
+						id: pairCount.id
+					}
+				})
+			}
+			else {
+				await PairCounter.create({
+					count: 1,
+					user_id: user.id,
+					dated: moment().format('YYYY-MM-DD')
+				});
+			}
+		}
+
+		// Stop looping if we have paired twice
+		if(paired >= 2)
+			break;
+	}
+}
+
+exports.paired = async (req, res) => {
+
+	try {
+		// Find pairing for Today
+		let pairCount = await PairCounter.findOne({
+			where: {
+				user_id: {
+					[Op.eq]: req.session.user.id
+				},
+				dated: {
+					[Op.eq]: moment().format('YYYY-MM-DD')
+				}
+			}
+		});
+
+		// Process Pairing for Today
+		if(pairCount && pairCount.count < 2) {
+			await pairMatchingLandlord(req.session.user);
+		}
+
+
+		landlords = await Pairing.findAll({
+			where: {
+				tenant_id: {
+					[Op.eq]: req.session.user.id
+				},
+			},
+			include: {
+				model: User,
+				as: 'landlord'
+			}
+		});
+
+		res.render("dashboards/tenants/paired", { 
+			landlords: landlords, 
+			title: 'Properties Landlords',
+			user: req.session.user, 
+			layout: 'layouts/tenant' 
+		});
+	}
+	catch(e) {
+		req.flash('warning', 'Error: ' + e.message);
+		res.redirect('back');
+	}
 }
 
 exports.home = async (req, res) => {
@@ -477,7 +590,7 @@ exports.register = async (req, res) => {
 	    	tenant = await Tenant.create({
 	    		tenant_id: user.id,
 	            tenant_employment: req.body.employment,
-	            tenant_income: req.body.income,
+	            tenant_income: req.body.income || 0,
 	            professionals: req.body.professional,
 	            smoker: req.body.smoke,
 	            drinker: req.body.drink,
@@ -509,9 +622,9 @@ exports.register = async (req, res) => {
 	    }
 	} // Check error
 	catch(e) {
-		console.log(e);
 		res.json({
 			error: true,
+			stack: e,
 			message: 'Error occur. Please try again'
 		})
 	}

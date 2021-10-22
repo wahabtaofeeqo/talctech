@@ -68,32 +68,43 @@ exports.home = async (req, res) => {
 
 exports.paired = async (req, res) => {
 
-	const pairings = await Pairing.findAll({
-        where: {
-            "$property.user_id$": {
-                [Op.eq]: req.session.user.id
-            },
-        },
-        include: [
-        	{
-            	model: Property,
-            	as: 'property',
+	// const pairings = await Pairing.findAll({
+ //        where: {
+ //            "$property.user_id$": {
+ //                [Op.eq]: req.session.user.id
+ //            },
+ //        },
+ //        include: [
+ //        	{
+ //            	model: Property,
+ //            	as: 'property',
 
-	            include: [
-	            	{
-	                	model: User,
-	                	as: 'user',
-	            	}
-	        	]
-        	}, 
-        ],
-    });
+	//             include: [
+	//             	{
+	//                 	model: User,
+	//                 	as: 'user',
+	//             	}
+	//         	]
+ //        	}, 
+ //        ],
+ //    });
 
+ 	tenants = await Pairing.findAll({
+		where: {
+			landlord_id: {
+				[Op.eq]: req.session.user.id
+			},
+		},
+		include: {
+			model: User,
+			as: 'landlord'
+		}
+	});
 
     res.render('dashboards/landlords/paired', { 
 		layout: 'layouts/landlord',
 		user: req.session.user,
-		pairings: pairings
+		tenants
 	})
 }
 
@@ -348,7 +359,7 @@ exports.register = async (req, res) => {
 	    		landlord_id: user.id,
 	            tenant_employment: req.body.employment,
 	            tenant_income: req.body.income,
-	            professionals: req.body.professional,
+	            professionals: req.body.professional || 0,
 	            preference: req.body.preference,
 	            smoker: req.body.smoke,
 	            drinker: req.body.drink,

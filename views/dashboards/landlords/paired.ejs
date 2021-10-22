@@ -19,12 +19,12 @@
 	        		</thead>
 
 	        		<tbody>
-	        			<% for(let i = 0; i < pairings.length; i++) {%>
+	        			<% for(let i = 0; i < tenants.length; i++) {%>
 	        				<tr>
 	        					<td><%= (i + 1) %></td>
-	        					<td><%= pairings[i].property.user.name %></td>
-	        					<td><%= pairings[i].property.user.email %></td>
-	        					<td><%= pairings[i].property.user.phone %></td>
+	        					<td><%= (tenants[i].user) ? tenants[i].user.name : 'N/A' %></td>
+	        					<td><%= (tenants[i].user) ? tenants[i].user.email : 'N/A' %></td>
+	        					<td><%= (tenants[i].user) ? tenants[i].user.phone : 'N/A' %></td>
 	        					<!-- <td>
 	        						<a href="#">View</a>
 	        					</td> -->

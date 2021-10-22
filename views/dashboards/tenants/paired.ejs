@@ -1,7 +1,7 @@
 <%- contentFor('body') %>
 
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Paired Properties Landlords</h1>
+        <h1 class="h3 mb-0 text-gray-800">Paired Landlords</h1>
     </div>
 
 	<div class="card">
@@ -21,10 +21,9 @@
 	        			<% for(let i = 0; i < landlords.length; i++) {%>
 	        				<tr>
 	        					<td><%= (i + 1) %></td>
-	        					<td><%= landlords[i].property.user.name %></td>
-	        					<td><%= landlords[i].property.user.email %></td>
-	        					<td><%= landlords[i].property.user.phone %></td>
-	        					
+	        					<td><%= (landlords[i].landlord) ? landlords[i].landlord.name : 'N/A' %></td>
+	        					<td><%= (landlords[i].landlord) ? landlords[i].landlord.email : 'N/A' %></td>
+	        					<td><%= (landlords[i].landlord) ? landlords[i].landlord.phone : 'N/A' %></td>
 	        				</tr>
 	        			<% } %>
 	        		</tbody>

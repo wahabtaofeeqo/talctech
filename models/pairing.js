@@ -18,7 +18,12 @@ module.exports = (sequelize, DataTypes) => {
 
       Pairing.belongsTo(models.User, {
         foreignKey: "tenant_id",
-        as: "user",
+        as: "tenant",
+      });
+
+      Pairing.belongsTo(models.User, {
+        foreignKey: "landlord_id",
+        as: "landlord",
       });
     }
   };
